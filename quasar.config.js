@@ -8,7 +8,12 @@
 // Configuration for your app
 // https://v2.quasar.dev/quasar-cli-vite/quasar-config-js
 
+const packageInfo = require("./package.json");
+
+// const { viteSingleFile } = require("vite-plugin-singlefile");
+
 const { configure } = require("quasar/wrappers");
+const path = require("path");
 
 module.exports = configure(function (/* ctx */) {
     return {
@@ -18,7 +23,7 @@ module.exports = configure(function (/* ctx */) {
         // app boot file (/src/boot)
         // --> boot files are part of "main.js"
         // https://v2.quasar.dev/quasar-cli-vite/boot-files
-        boot: [],
+        boot: ["i18n", "addressbar-color"],
 
         // https://v2.quasar.dev/quasar-cli-vite/quasar-config-js#css
         css: ["app.scss"],
@@ -51,12 +56,25 @@ module.exports = configure(function (/* ctx */) {
 
             // rebuildCache: true, // rebuilds Vite/linter/etc cache on startup
 
+            // publicPath: '/',
+            // publicPath: "/quasar_lightpaint/dist/spa/",
             publicPath: "mks-welcome-quasar",
             // analyze: true,
-            // env: {},
+            env: {
+                //https://forum.quasar-framework.org/topic/6853/auto-generate-a-build-number-in-spa/15?_=1653270667151
+                // https://quasar.dev/quasar-cli-webpack/handling-process-env#caveats
+                appinfo: {
+                    name: packageInfo.name,
+                    version: packageInfo.version,
+                    productName: packageInfo.productName,
+                    description: packageInfo.description,
+                    projectUrl: packageInfo.projectUrl,
+                    previewUrl: packageInfo.previewUrl,
+                },
+            },
             // rawDefine: {}
             // ignorePublicFolder: true,
-            // minify: false,
+            minify: false,
             // polyfillModulePreload: true,
             // distDir
 
@@ -64,6 +82,20 @@ module.exports = configure(function (/* ctx */) {
             // viteVuePluginOptions: {},
 
             vitePlugins: [
+                [
+                    "@intlify/vite-plugin-vue-i18n",
+                    {
+                        // if you want to use Vue I18n Legacy API, you need to set `compositionOnly: false`
+                        // compositionOnly: false,
+
+                        // if you want to use named tokens in your Vue I18n messages, such as 'Hello {name}',
+                        // you need to set `runtimeOnly: false`
+                        // runtimeOnly: false,
+
+                        // you need to set i18n resource including paths !
+                        include: path.resolve(__dirname, "./src/i18n/**"),
+                    },
+                ],
                 [
                     "vite-plugin-checker",
                     {
@@ -73,18 +105,23 @@ module.exports = configure(function (/* ctx */) {
                     },
                     { server: false },
                 ],
+                // [viteSingleFile()],
             ],
         },
 
         // Full list of options: https://v2.quasar.dev/quasar-cli-vite/quasar-config-js#devServer
         devServer: {
-            // https: true
-            open: true, // opens browser window automatically
+            https: true,
+            open: false, // opens browser window automatically
         },
 
         // https://v2.quasar.dev/quasar-cli-vite/quasar-config-js#framework
         framework: {
-            config: {},
+            config: {
+                notify: {
+                    // https://quasar.dev/quasar-plugins/notify
+                },
+            },
 
             // iconSet: 'material-icons', // Quasar icon set
             // lang: 'en-US', // Quasar language pack
@@ -97,7 +134,13 @@ module.exports = configure(function (/* ctx */) {
             // directives: [],
 
             // Quasar plugins
-            plugins: [],
+            plugins: [
+                "AddressbarColor",
+                "AppFullscreen",
+                "LocalStorage",
+                "SessionStorage",
+                "Notify",
+            ],
         },
 
         // animations: 'all', // --- includes all animations
