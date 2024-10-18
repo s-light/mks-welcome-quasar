@@ -20,10 +20,20 @@
     <link rel="icon" type="image/png" sizes="32x32" href="/mks-welcome-quasar/icons/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/mks-welcome-quasar/icons/favicon-16x16.png">
     <link rel="icon" type="image/ico" href="/mks-welcome-quasar/favicon.ico">
-    <script type="module" crossorigin src="/mks-welcome-quasar/assets/index.f7a8c2cc.js"></script>
+    <script type="module" crossorigin src="/mks-welcome-quasar/assets/index.03d33f0e.js"></script>
     <link rel="stylesheet" href="/mks-welcome-quasar/assets/index.3fc86f98.css">
   </head>
   <body>
+    <!-- https://dev.to/quasar/publish-your-quasar-spa-on-github-io-with-history-mode-20h2 -->
+    <script>
+        (function () {
+            let redirect = sessionStorage.redirect;
+            delete sessionStorage.redirect;
+            if (redirect && redirect !== location.href) {
+                history.replaceState(null, null, redirect);
+            }
+        })();
+    </script>
     <div id="q-app"></div>
   </body>
 </html>

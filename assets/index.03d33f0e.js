@@ -8386,12 +8386,6 @@ function createWebHistory(base2) {
   });
   return routerHistory;
 }
-function createWebHashHistory(base2) {
-  base2 = location.host ? base2 || location.pathname + location.search : "";
-  if (!base2.includes("#"))
-    base2 += "#";
-  return createWebHistory(base2);
-}
 function isRouteLocation(route2) {
   return typeof route2 === "string" || route2 && typeof route2 === "object";
 }
@@ -9710,36 +9704,36 @@ const childrenCommon = [
     title: "md test",
     icon: "brush",
     path: "/",
-    component: () => __vitePreload(() => import("./IndexPage.e67a5b85.js"), true ? ["assets/IndexPage.e67a5b85.js","assets/IndexPage.4c580164.css","assets/QPage.3d994d05.js"] : void 0)
+    component: () => __vitePreload(() => import("./IndexPage.11e8d12b.js"), true ? ["assets/IndexPage.11e8d12b.js","assets/IndexPage.4c580164.css","assets/QPage.4a2f749f.js"] : void 0)
   },
   {
     title: "About",
     icon: "info",
     path: "about",
-    component: () => __vitePreload(() => import("./AboutPage.89a3a9c1.js"), true ? ["assets/AboutPage.89a3a9c1.js","assets/QPage.3d994d05.js"] : void 0)
+    component: () => __vitePreload(() => import("./AboutPage.85a35e44.js"), true ? ["assets/AboutPage.85a35e44.js","assets/QPage.4a2f749f.js"] : void 0)
   },
   {
     title: "Settings",
     icon: "settings",
     path: "settings",
-    component: () => __vitePreload(() => import("./SettingsPage.11221b83.js"), true ? ["assets/SettingsPage.11221b83.js","assets/QPage.3d994d05.js"] : void 0)
+    component: () => __vitePreload(() => import("./SettingsPage.acf4e7bf.js"), true ? ["assets/SettingsPage.acf4e7bf.js","assets/QPage.4a2f749f.js"] : void 0)
   }
 ];
 const routes = [
   {
     path: "/",
-    component: () => __vitePreload(() => import("./MainLayout.2f7c229a.js"), true ? [] : void 0),
+    component: () => __vitePreload(() => import("./MainLayout.60f5d6ae.js"), true ? [] : void 0),
     children: [
       ...childrenCommon
     ]
   },
   {
     path: "/:catchAll(.*)*",
-    component: () => __vitePreload(() => import("./ErrorNotFound.cec5d60c.js"), true ? [] : void 0)
+    component: () => __vitePreload(() => import("./ErrorNotFound.03fdf71d.js"), true ? [] : void 0)
   }
 ];
 var createRouter = route(function() {
-  const createHistory = createWebHashHistory;
+  const createHistory = createWebHistory;
   const Router = createRouter$1({
     scrollBehavior: () => ({ left: 0, top: 0 }),
     routes,
@@ -11516,7 +11510,6 @@ async function start({
     const href = getRedirectUrl(url);
     if (href !== null) {
       window.location.href = href;
-      window.location.reload();
     }
   };
   const urlPath = window.location.href.replace(window.location.origin, "");
@@ -11561,8 +11554,8 @@ createQuasarApp(createApp, quasarUserOptions).then((app2) => {
     (bootFiles) => bootFiles.map((entry) => entry.default)
   ];
   return Promise[method]([
-    __vitePreload(() => import("./i18n.616a5e8f.js"), true ? [] : void 0),
-    __vitePreload(() => import("./addressbar-color.f260cf96.js"), true ? [] : void 0)
+    __vitePreload(() => import("./i18n.1d6e6618.js"), true ? [] : void 0),
+    __vitePreload(() => import("./addressbar-color.79cef744.js"), true ? [] : void 0)
   ]).then((bootFiles) => {
     const boot2 = mapFn(bootFiles).filter((entry) => typeof entry === "function");
     start(app2, boot2);
