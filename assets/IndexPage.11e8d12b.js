@@ -1,5 +1,5 @@
-import { Q as QPage } from "./QPage.3d994d05.js";
-import { i as inject, q as quasarKey, d as defineComponent, r as ref, c as computed, h, k as openBlock, l as createBlock, m as withCtx, n as createBaseVNode, f as createVNode, u as unref } from "./index.f7a8c2cc.js";
+import { Q as QPage } from "./QPage.4a2f749f.js";
+import { i as inject, q as quasarKey, d as defineComponent, r as ref, c as computed, h, k as openBlock, l as createBlock, m as withCtx, n as createBaseVNode, f as createVNode, u as unref } from "./index.03d33f0e.js";
 function _mergeNamespaces(n2, m) {
   m.forEach(function(e2) {
     e2 && typeof e2 !== "string" && !Array.isArray(e2) && Object.keys(e2).forEach(function(k2) {

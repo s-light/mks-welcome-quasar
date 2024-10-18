@@ -1,5 +1,5 @@
-import { Q as QPage } from "./QPage.3d994d05.js";
-import { k as openBlock, l as createBlock, m as withCtx, n as createBaseVNode, z as toDisplayString, u as unref } from "./index.f7a8c2cc.js";
+import { Q as QPage } from "./QPage.4a2f749f.js";
+import { k as openBlock, l as createBlock, m as withCtx, n as createBaseVNode, z as toDisplayString, u as unref } from "./index.03d33f0e.js";
 const _sfc_main = {
   __name: "SettingsPage",
   setup(__props) {
