@@ -2,7 +2,7 @@ export const childrenCommon = [
     {
         // title: 'Welcome',
         // icon: 'home',
-        title: "lightpainting",
+        title: "md test",
         icon: "brush",
         path: "/",
         component: () => import("pages/IndexPage.vue"),

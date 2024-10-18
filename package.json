@@ -13,10 +13,17 @@
     "build": "quasar build"
   },
   "dependencies": {
+    "@mdit/plugin-include": "^0.13.1",
     "@quasar/extras": "^1.16.4",
+    "gray-matter": "^4.0.3",
+    "gray-matter-browser": "^4.0.4",
+    "highlight.js": "^11.10.0",
+    "markdown-it-anchor": "^9.2.0",
     "pinia": "^2.2.4",
     "quasar": "^2.16.0",
     "vue": "^3.4.18",
+    "vue-i18n": "^10.0.0",
+    "vue-markdown-render": "^2.2.1",
     "vue-router": "^4.0.12"
   },
   "devDependencies": {
