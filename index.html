@@ -22,15 +22,16 @@
     <link rel="icon" type="image/ico" href="favicon.ico">
   </head>
   <body>
-    <!-- https://dev.to/quasar/publish-your-quasar-spa-on-github-io-with-history-mode-20h2 -->
-    <script>
-        (function () {
-            let redirect = sessionStorage.redirect;
-            delete sessionStorage.redirect;
-            if (redirect && redirect !== location.href) {
-                history.replaceState(null, null, redirect);
-            }
-        })();
+      <script>
+        <!-- https://dev.to/quasar/publish-your-quasar-spa-on-github-io-with-history-mode-20h2 -->
+        // (function () {
+        //     console.log("history mode for github...");
+        //     let redirect = sessionStorage.redirect;
+        //     delete sessionStorage.redirect;
+        //     if (redirect && redirect !== location.href) {
+        //         history.replaceState(null, null, redirect);
+        //     }
+        // })();
     </script>
     <!-- quasar:entry-point -->
   </body>
