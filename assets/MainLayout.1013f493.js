@@ -1,4 +1,5 @@
-import { p as createComponent, c as computed, h, y as hSlot, C as useRouterLinkProps, D as useRouterLink, r as ref, E as isKeyCode, G as stopAndPrevent, H as hUniqueSlot, g as getCurrentInstance, I as onBeforeUnmount, J as History, w as watch, K as vmHasRouter, o as onMounted, L as nextTick, M as css, N as getElement, O as client, P as listenOpts, Q as getEventPath, R as onDeactivated, S as vmIsDestroyed, U as Platform, V as createDirective, W as noop, X as leftClick, Y as addEvt, Z as preventDraggable, _ as prevent, $ as stop, a0 as position, a1 as cleanEvt, i as inject, t as emptyRenderFn, v as layoutKey, a2 as withDirectives, a3 as hDir, a4 as provide, x as pageContainerKey, a5 as isRuntimeSsrPreHydration, a6 as reactive, a as onUnmounted, a7 as hMergeSlot, a8 as childrenCommon, k as openBlock, a9 as createElementBlock, aa as renderList, F as Fragment, l as createBlock, m as withCtx, f as createVNode, ab as QIcon, B as createTextVNode, z as toDisplayString, ac as resolveComponent, ad as QBtn, u as unref, n as createBaseVNode } from "./index.03d33f0e.js";
+import { l as createComponent, c as computed, h, m as hSlot, G as useRouterLinkProps, H as useRouterLink, r as ref, I as isKeyCode, J as stopAndPrevent, K as hUniqueSlot, a as getCurrentInstance, L as onBeforeUnmount, M as History, w as watch, N as vmHasRouter, o as onMounted, O as nextTick, P as css, Q as getElement, R as client, S as listenOpts, U as getEventPath, V as onDeactivated, W as vmIsDestroyed, X as Platform, Y as createDirective, Z as noop, _ as leftClick, $ as addEvt, a0 as preventDraggable, a1 as prevent, a2 as stop, a3 as position, a4 as cleanEvt, i as inject, y as emptyRenderFn, z as layoutKey, a5 as withDirectives, a6 as hDir, a7 as provide, B as pageContainerKey, a8 as isRuntimeSsrPreHydration, a9 as reactive, b as onUnmounted, aa as hMergeSlot, ab as childrenCommon, n as openBlock, p as createElementBlock, x as renderList, t as createBlock, u as withCtx, j as createVNode, ac as QIcon, E as createTextVNode, C as toDisplayString, F as Fragment, ad as resolveComponent, ae as QBtn, D as unref, v as createBaseVNode } from "./index.2ba7ef10.js";
+import { u as useDarkProps, a as useDark, _ as _export_sfc } from "./plugin-vue_export-helper.e2d486a5.js";
 var QItemSection = createComponent({
   name: "QItemSection",
   props: {
@@ -15,15 +16,6 @@ var QItemSection = createComponent({
     return () => h("div", { class: classes.value }, hSlot(slots.default));
   }
 });
-const useDarkProps = {
-  dark: {
-    type: Boolean,
-    default: null
-  }
-};
-function useDark(props, $q) {
-  return computed(() => props.dark === null ? $q.dark.isActive : props.dark);
-}
 var QItem = createComponent({
   name: "QItem",
   props: {
@@ -1810,13 +1802,6 @@ var QLayout = createComponent({
     };
   }
 });
-var _export_sfc = (sfc, props) => {
-  const target = sfc.__vccOpts || sfc;
-  for (const [key, val] of props) {
-    target[key] = val;
-  }
-  return target;
-};
 const _sfc_main$1 = {
   name: "EssentialNavigation",
   data() {

@@ -171,4 +171,17 @@ SOFTWARE.
 .hljs-deletion {
   color: #EF535090;
   font-style: italic
+}.card-wrapper[data-v-bd0c7c8c] {
+  list-style: none;
+  padding: 0;
+}
+.card-wrapper li[data-v-bd0c7c8c] {
+  margin: 0;
+}
+.my-card[data-v-bd0c7c8c] {
+  width: 100%;
+  max-width: 30vw;
+}.my-card img {
+  max-width: 100%;
+  max-height: 20vh;
 }
