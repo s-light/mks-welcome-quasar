@@ -1,8 +1,24 @@
 <template>
-    <q-page class="flex flex-center content-stretch">
+    <!-- <q-page class="flex flex-center content-stretch"> -->
+    <q-page class="">
         <section>
             <div>Markdown document loaded and rendered here:</div>
-            <vue-markdown :source="src" :plugins="md_plugins" :options="mdOptions" />
+            <my-markdown
+                :source="mks_welcome['./readme.md'].content"
+                :file-path="mks_welcome.path_base"
+            />
+            <ul class="card-wrapper q-pa-md row items-start q-gutter-md">
+                <li v-for="(item, index) in mks_funktionen" :key="index">
+                    <q-card class="my-card">
+                        <q-card-section>
+                            <my-markdown
+                                :source="item['./readme.md'].content"
+                                :file-path="item.path_base"
+                            />
+                        </q-card-section>
+                    </q-card>
+                </li>
+            </ul>
         </section>
     </q-page>
 </template>
@@ -10,84 +26,24 @@
 <script setup>
 import { ref, computed } from "vue";
 import { useQuasar } from "quasar";
-import VueMarkdown from "vue-markdown-render";
+
+import MyMarkdown from "src/components/MyMarkdown.vue";
 // import LightPaint from "src/components/LightPaint.vue";
 
 // import { useTheTimeStore } from "stores/thetime.js";
 
 // import TimerDisplay from "components/TimerDisplay.vue";
 
-import MarkdownItAnchor from "markdown-it-anchor";
-
-import hljs from "highlight.js";
-import 'highlight.js/styles/night-owl.css';
-// import hljs from 'highlight.js/lib/core';
-// import javascript from 'highlight.js/lib/languages/javascript';
-// // Then register the languages you need
-// hljs.registerLanguage('javascript', javascript);
-
-const mdOptions = {
-    html: true,
-    linkify: true,
-    typographer: true,
-    highlight: function (str, lang) {
-        if (lang && hljs.getLanguage(lang)) {
-            try {
-                return hljs.highlight(str, { language: lang }).value;
-            } catch (__) {}
-        }
-        return ""; // use external default escaping
-    },
-};
-
-import { include as mdit_include } from "@mdit/plugin-include";
-
-// function setupPlugins(plugins){
-//     plugins.map(item => {
-//         const [plugin, plugin_options] = item;
-//         return (instance) => instance.use(plugin, plugin_options)
-//     });
-//     return
-// }
-
-function plugin_with_options(plugin, options) {
-    // https://github.com/cloudacy/vue-markdown-render/issues/23#issuecomment-2136004517
-    return (instance) => instance.use(plugin, options);
-}
-
-// const md_plugins = [MarkdownItAnchor, mdit_include];
-// const md_plugins = [
-//     MarkdownItAnchor,
-//     plugin_with_options(mdit_include, { currentPath: (env) => env.filePath }),
-// ];
-const md_plugins = [MarkdownItAnchor];
-
-// import MarkDownData from '../../../mks/readme.md';
-import MarkDownData from "../../mks/readme.md?raw";
-// console.log(MarkDownData);
-import mksContent from '../../mks/';
+import mksContent from "../../public/mks/";
+// console.log("mksContent", mksContent);
 console.log("mksContent", mksContent);
-
-// // console.log(file_list);
-// for (const item of Object.keys(file_list).sort()) {
-//     console.log(item);
-// }
-// const file_tree = () => {
-//     let file_tree = {};
-//     const dir_funktionen = import.meta.glob("./*/*.md", {
-//         query: "?raw",
-//         // import: "default",
-//     });
-//     console.log(dir_funktionen);
-//     dir_funktionen.en;
-//     return file_tree;
-// }
-
-// export default file_tree();
-
-
-// const src_mks = ref("# ping");
-const src = ref(MarkDownData);
+const mks_welcome = ref(mksContent["welcome"]);
+// console.log(`mksContent['welcome']['./readme.md']['content']`, mksContent['welcome']['./readme.md']['content']);
+console.log(`mksContent.welcome`, mksContent.welcome);
+// console.log(`mksContent.welcome['./readme.md'].content`, mksContent.welcome['./readme.md'].content);
+// console.log(`mksContent.welcome['./readme.md'].path_base`, mksContent.welcome['./readme.md'].path_base);
+const mks_funktionen = ref(mksContent["funktionen"]);
+console.log("mks_funktionen", mks_funktionen.value);
 
 // const thetime = useTheTimeStore();
 
@@ -107,3 +63,21 @@ $q.dark.set(true); // or false or "auto"
 // toggle
 // $q.dark.toggle()
 </script>
+
+<style lang="sass" scoped>
+.card-wrapper
+    list-style: none
+    padding: 0
+    li
+        margin: 0
+.my-card
+  width: 100%
+  max-width: 30vw
+</style>
+
+<style lang="sass">
+.my-card
+  img
+    max-width: 100%
+    max-height: 20vh
+</style>

@@ -15,6 +15,10 @@ const packageInfo = require("./package.json");
 const { configure } = require("quasar/wrappers");
 const path = require("path");
 
+// required for the gray-matter plugin.
+// https://github.com/davidmyersdev/vite-plugin-node-polyfills
+const { nodePolyfills } = require("vite-plugin-node-polyfills");
+
 module.exports = configure(function (/* ctx */) {
     return {
         // https://v2.quasar.dev/quasar-cli-vite/prefetch-feature
@@ -106,6 +110,7 @@ module.exports = configure(function (/* ctx */) {
                     { server: false },
                 ],
                 // [viteSingleFile()],
+                nodePolyfills(),
             ],
         },
 

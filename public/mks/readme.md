@@ -7,15 +7,20 @@ tags: "welcome"
 
 hier findet ihr eine Liste aller MYS Materialien:
 
-```js
-// readme.md code snippet...
-import { ref, computed } from "vue";
-import { useQuasar } from "quasar";
-const mdOptions = {
-  html: true,
-  linkify: true,
-  typographer: true,
-};
+test for code-highlight
+```c++
+unsigned long nextEvent = 0;
+const unsigned long duration= 1000;
+
+void setup() {
+}
+
+void loop() {
+    if (millis() > nextEvent) {
+        nextEvent = millis() + duration;
+        // do someting every second.
+    }
+}
 
 ```
 
