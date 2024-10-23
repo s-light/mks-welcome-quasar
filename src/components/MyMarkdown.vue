@@ -1,6 +1,6 @@
 <template>
     <!-- <VueMarkdown :source="source" :plugins="md_plugins" :options="md_options" /> -->
-    <div class="md" v-html="contentHTML"></div>
+    <div class="my-markdown" v-html="contentHTML"></div>
 </template>
 
 <script setup>
@@ -21,6 +21,7 @@ import anchor from "markdown-it-anchor";
 import { include as mdit_include } from "@mdit/plugin-include";
 
 import markdownItPluginImgSrcAbs from "./markdown-it-plugin-img-src-abs";
+import markdownItPluginEmbedCode from "./markdown-it-plugin-embed-code";
 
 import hljs from "highlight.js";
 import "highlight.js/styles/night-owl.css";
@@ -58,10 +59,16 @@ const md = shallowRef(new MarkdownIt(md_options));
 //   permalink: anchor.permalink.headerLink()
 // });
 // md.value.use(mdi_toc);
-md.value.use(mdit_include, {
-    // your options, currentPath is required
-    currentPath: (env) => env.filePath,
-});
+
+// https://mdit-plugins.github.io/include.html#syntax
+// md.value.use(mdit_include, {
+//     // your options, currentPath is required
+//     currentPath: (env) => env.filePath,
+// });
+// this currently does not work - as es tries to use process.cwd
+// so we write our own
+md.value.use(markdownItPluginEmbedCode);
+
 md.value.use(markdownItPluginImgSrcAbs);
 
 // function setupPlugins(plugins){
@@ -94,3 +101,23 @@ const contentHTML = computed(() => {
 
 
 
+<style lang="sass">
+.my-markdown
+    h1
+        font-size: 4rem
+    h2
+        font-size: 3rem
+    h3
+        font-size: 2rem
+    h4
+        font-size: 1rem
+    h5
+        font-size: 1rem
+    h6
+        font-size: 1rem
+.my-card .my-markdown h1:nth-child(1)
+        position: sticky
+        top: 1rem
+        text-shadow: 0 0 2px black, 0 0 5px black, 0 0 10px black, 0 0 10px black, 0 0 10px black, 0 0 10px black, 0 0 10px black, 0 0 10px black
+        background-color: inherit
+</style>

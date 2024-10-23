@@ -3,18 +3,25 @@
     <q-page class="">
         <section>
             <div>Markdown document loaded and rendered here:</div>
-            <my-markdown
-                :source="mks_welcome['./readme.md'].content"
-                :file-path="mks_welcome.path_base"
-            />
-            <ul class="card-wrapper q-pa-md row items-start q-gutter-md">
-                <li v-for="(item, index) in mks_funktionen" :key="index">
-                    <q-card class="my-card">
+            <my-markdown :source="mks_welcome.readme.content" :file-path="mks_welcome.path_base" />
+            <ul class="card-wrapper q-ma-md q-pa-md row items-start q-gutter-md">
+                <li v-for="(fn_item, fn_name) in mks_funktionen" :key="fn_name">
+                    <q-card class="my-card q-ma-md q-pa-md ">
                         <q-card-section>
                             <my-markdown
-                                :source="item['./readme.md'].content"
-                                :file-path="item.path_base"
+                                :source="fn_item.readme.content"
+                                :file-path="fn_item.path_base"
                             />
+                            <q-card
+                                v-for="(part_item, part_name) in fn_item.bauteile"
+                                :key="part_name"
+                                class="q-ma-md q-pa-md card-bauteil"
+                            >
+                                <my-markdown
+                                    :source="part_item.readme.content"
+                                    :file-path="part_item.path_base"
+                                />
+                            </q-card>
                         </q-card-section>
                     </q-card>
                 </li>
@@ -39,11 +46,10 @@ import mksContent from "../../public/mks/";
 console.log("mksContent", mksContent);
 const mks_welcome = ref(mksContent["welcome"]);
 // console.log(`mksContent['welcome']['./readme.md']['content']`, mksContent['welcome']['./readme.md']['content']);
-console.log(`mksContent.welcome`, mksContent.welcome);
+// console.log(`mksContent.welcome`, mksContent.welcome);
 // console.log(`mksContent.welcome['./readme.md'].content`, mksContent.welcome['./readme.md'].content);
 // console.log(`mksContent.welcome['./readme.md'].path_base`, mksContent.welcome['./readme.md'].path_base);
 const mks_funktionen = ref(mksContent["funktionen"]);
-console.log("mks_funktionen", mks_funktionen.value);
 
 // const thetime = useTheTimeStore();
 
@@ -72,7 +78,9 @@ $q.dark.set(true); // or false or "auto"
         margin: 0
 .my-card
   width: 100%
-  max-width: 30vw
+  max-width: 31vw
+  max-height: 80vh
+  overflow: scroll
 </style>
 
 <style lang="sass">

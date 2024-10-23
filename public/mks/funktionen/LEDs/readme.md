@@ -1,12 +1,10 @@
 ---
-tags: "motor, motortreiber"
+tags: "output, led, licht, Farbe"
 ---
 
-# Motortreiber
+# LEDs
 
-![Motortreiber allgemein](https://makeyourschool.de/wp-content/uploads/2018/10/70_motortreiber-1024x1024.jpg)
-
-TODO: CONTENT change image to general
+![LED](./led-lamp-green-on.svg)
 
 ## Funktionen
 
@@ -35,7 +33,7 @@ siehe einzelnes bauteile.
 
 ## Siehe Auch
 
--   [Motoren](./motor/)
+-   x
 
 ## Bauteile
-TODO: ARCHITECTURE link sub-pages
+
