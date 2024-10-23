@@ -8,7 +8,7 @@ const RE_INFO = /(?<codeLang>.*)\s\:(?<codeFilePath>.*)/;
 
 const embedCode = async (tokens, idx, options, env, self) => {
     const token = tokens[idx];
-    console.log(`token: `, token);
+    // console.log(`token: `, token);
     const reResult = RE_INFO.exec(token.info);
     // console.log(`reResult: `, reResult);
     if (reResult) {
@@ -30,9 +30,9 @@ const embedCode = async (tokens, idx, options, env, self) => {
                 console.log(error);
             }
             if (codeContent) {
-                console.log("overwrite token.content.");
+                // console.log("overwrite token.content.");
                 token.content = codeContent;
-                console.log("token", token);
+                // console.log("token", token);
             }
         }
     }

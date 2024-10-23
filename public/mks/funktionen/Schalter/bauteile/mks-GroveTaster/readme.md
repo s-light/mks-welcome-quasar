@@ -38,16 +38,19 @@ keine library nötig.
 ## Beispiel
 
 schau dir das Minimal-Beispiel an:
-<!-- TODO: ARCHITECTURE include example *_minimal.ino-->
+
+```c++:./examples/taster/taster.ino
+// this should be overwritten!
+```
 
 ## Anleitung
 
 <!-- TODO: CONTENT change guide -->
 - nimm Bauteil
 - Schließe an Port D2 an
-- nehm Beispiel Code 
+- nehm Beispiel Code
     - kopiere von hier drüber
-    - oder direkt in der Arduino IDE: 
+    - oder direkt in der Arduino IDE:
         `Datei-Beispiele-MakeYourSchool-FunktionsNamen-BauteilNamen-Minimal`
 - Sketch Hochladen
 - Das Sollte nun passieren:

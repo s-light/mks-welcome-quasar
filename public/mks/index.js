@@ -114,8 +114,8 @@ const mksGetContent = () => {
     mksContent["welcome"].readme = preProcessingMD(temp["./readme.md"], path_base);
     mksContent["welcome"]["path_base"] = path_base;
 
-    // mksGetFunktionen(mksContent);
-    // mksGetFnBauteile(mksContent);
+    mksGetFunktionen(mksContent);
+    mksGetFnBauteile(mksContent);
 
     // console.log("mksContent:", mksContent);
     console.groupEnd();

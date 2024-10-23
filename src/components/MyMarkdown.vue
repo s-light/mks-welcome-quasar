@@ -133,5 +133,7 @@ watchEffect(async () => {
         top: 1rem
         text-shadow: 0 0 2px black, 0 0 5px black, 0 0 10px black, 0 0 10px black, 0 0 10px black, 0 0 10px black, 0 0 10px black, 0 0 10px black
         background-color: inherit
+.body--light .my-card .my-markdown h1:nth-child(1)
+        text-shadow: 0 0 2px white, 0 0 5px white, 0 0 10px white, 0 0 10px white, 0 0 10px white, 0 0 10px white, 0 0 10px white, 0 0 10px white
 </style>
 , watchEffect

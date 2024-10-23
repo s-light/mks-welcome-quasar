@@ -2,7 +2,6 @@
     <!-- <q-page class="flex flex-center content-stretch"> -->
     <q-page class="">
         <section>
-            <div>Markdown document loaded and rendered here:</div>
             <my-markdown :source="mks_welcome.readme.content" :file-path="mks_welcome.path_base" />
             <ul class="card-wrapper q-ma-md q-pa-md row items-start q-gutter-md">
                 <li v-for="(fn_item, fn_name) in mks_funktionen" :key="fn_name">
@@ -56,18 +55,7 @@ const mks_funktionen = ref(mksContent["funktionen"]);
 // $q.notify('Message')
 
 const $q = useQuasar();
-// https://quasar.dev/quasar-plugins/addressbar-color
-// $q.addressbarColor.set('#a2e3fa')
 
-// dark mode
-// get status
-// console.log($q.dark.isActive); // true, false
-// get configured status
-// console.log($q.dark.mode) // "auto", true, false
-// set status
-$q.dark.set(true); // or false or "auto"
-// toggle
-// $q.dark.toggle()
 </script>
 
 <style lang="sass" scoped>

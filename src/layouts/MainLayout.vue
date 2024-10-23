@@ -17,15 +17,32 @@
             icon="menu"
             aria-label="Menu"
             @click="toggleLeftDrawer"
-            class="fixed-top q-ma-sm"
+            class="fixed-top-left q-ma-sm"
             style="z-index: 10000"
         >
         </q-btn>
+        <q-btn
+        class="fixed-top-right q-ma-sm"
+                            flat
+                            round
+                            @click="$q.dark.toggle()"
+                            :icon="$q.dark.isActive ? 'brightness_2' : 'brightness_5'"
+                        />
 
         <q-drawer v-model="leftDrawerOpen" bordered elevated persistent>
             <q-list class="q-pt-xl q-pb-xl">
                 <EssentialNavigation />
 
+                <q-item>
+                    <q-item-section>
+                        <q-btn
+                            flat
+                            round
+                            @click="$q.dark.toggle()"
+                            :icon="$q.dark.isActive ? 'brightness_2' : 'brightness_5'"
+                        />
+                    </q-item-section>
+                </q-item>
                 <q-item>
                     <q-item-section> </q-item-section>
                 </q-item>
@@ -45,7 +62,8 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { ref, watchEffect } from "vue";
+import { useQuasar } from "quasar";
 
 import EssentialNavigation from "components/EssentialNavigation.vue";
 
@@ -60,4 +78,28 @@ function toggleLeftDrawer() {
 }
 
 const appinfo = process.env.appinfo;
+
+const $q = useQuasar();
+
+// const dark = ref(true);
+// watchEffect(() => {
+//     $q.dark.set(dark);
+// });
+// https://quasar.dev/quasar-plugins/addressbar-color
+// $q.addressbarColor.set('#a2e3fa')
+// dark mode
+// get status
+// console.log($q.dark.isActive); // true, false
+// get configured status
+// console.log($q.dark.mode) // "auto", true, false
+// set status
+// $q.dark.set(true); // or false or "auto"
+// toggle
+// $q.dark.toggle()
 </script>
+
+<style>
+.body--light {
+  background-color: hsl(0, 0%, 100%);
+}
+</style>

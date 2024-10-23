@@ -42,7 +42,9 @@ um dieses Bauteil zu benutzen verwende / installiere bitte diese Library: Librar
 
 schau dir das Minimal-Beispiel an:
 
-<!-- TODO: ARCHITECTURE include example *_minimal.ino-->
+```c++:./examples/grove_motortreiber_minimal/grove_motortreiber_minimal.ino
+// this should be overwritten!
+```
 
 ## Anleitung
 

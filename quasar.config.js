@@ -126,6 +126,7 @@ module.exports = configure(function (/* ctx */) {
                 notify: {
                     // https://quasar.dev/quasar-plugins/notify
                 },
+                dark: true,
             },
 
             // iconSet: 'material-icons', // Quasar icon set
