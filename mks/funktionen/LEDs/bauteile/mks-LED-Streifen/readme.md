@@ -49,10 +49,8 @@ um dieses Bauteil zu benutzen verwende / installiere bitte diese Library: [fastl
 
 schau dir das Minimal-Beispiel an:
 
-<!-- @include ./examples/pixel_minimal/pixel_minimal.ino -->
 ```c++:./examples/pixel_minimal/pixel_minimal.ino
-// Ping Pong!!
-const char[] code = "this should be overwritten!";
+// this should be overwritten!
 ```
 
 ## Anleitung

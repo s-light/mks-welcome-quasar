@@ -1,5 +1,5 @@
-import { l as createComponent, c as computed, h, m as hSlot, H as useRouterLinkProps, I as useRouterLink, r as ref, J as isKeyCode, K as stopAndPrevent, L as hUniqueSlot, a as getCurrentInstance, M as onBeforeUnmount, N as History, w as watch, O as vmHasRouter, o as onMounted, P as nextTick, Q as css, R as getElement, S as client, U as listenOpts, V as getEventPath, W as onDeactivated, X as vmIsDestroyed, Y as Platform, Z as createDirective, _ as noop, $ as leftClick, a0 as addEvt, a1 as preventDraggable, a2 as prevent, a3 as stop, a4 as position, a5 as cleanEvt, i as inject, z as emptyRenderFn, B as layoutKey, a6 as withDirectives, a7 as hDir, a8 as provide, C as pageContainerKey, a9 as isRuntimeSsrPreHydration, aa as reactive, b as onUnmounted, ab as hMergeSlot, ac as childrenCommon, p as openBlock, t as createElementBlock, y as renderList, u as createBlock, v as withCtx, j as createVNode, ad as QIcon, G as createTextVNode, D as toDisplayString, F as Fragment, ae as resolveComponent, af as QBtn, E as unref, x as createBaseVNode } from "./index.2f1f1ba2.js";
-import { u as useDarkProps, a as useDark, _ as _export_sfc } from "./plugin-vue_export-helper.9bd9e67f.js";
+import { l as createComponent, c as computed, h, m as hSlot, H as useRouterLinkProps, I as useRouterLink, r as ref, J as isKeyCode, K as stopAndPrevent, L as hUniqueSlot, a as getCurrentInstance, M as onBeforeUnmount, N as History, w as watch, O as vmHasRouter, o as onMounted, P as nextTick, Q as css, R as getElement, S as client, U as listenOpts, V as getEventPath, W as onDeactivated, X as vmIsDestroyed, Y as Platform, Z as createDirective, _ as noop, $ as leftClick, a0 as addEvt, a1 as preventDraggable, a2 as prevent, a3 as stop, a4 as position, a5 as cleanEvt, i as inject, y as emptyRenderFn, z as layoutKey, a6 as withDirectives, a7 as hDir, a8 as provide, B as pageContainerKey, a9 as isRuntimeSsrPreHydration, aa as reactive, b as onUnmounted, ab as hMergeSlot, ac as childrenCommon, p as openBlock, q as createElementBlock, x as renderList, t as createBlock, u as withCtx, j as createVNode, ad as QIcon, G as createTextVNode, D as toDisplayString, F as Fragment, ae as resolveComponent, af as QBtn, E as unref, v as createBaseVNode } from "./index.d0ec3d17.js";
+import { u as useDarkProps, a as useDark, _ as _export_sfc, b as useQuasar } from "./plugin-vue_export-helper.59929e7a.js";
 var QItemSection = createComponent({
   name: "QItemSection",
   props: {
@@ -1849,6 +1849,7 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
   }), 128);
 }
 var EssentialNavigation = /* @__PURE__ */ _export_sfc(_sfc_main$1, [["render", _sfc_render]]);
+var MainLayout_vue_vue_type_style_index_0_lang = "";
 const _sfc_main = Object.assign({
   name: "MainLayout"
 }, {
@@ -1859,6 +1860,7 @@ const _sfc_main = Object.assign({
       leftDrawerOpen.value = !leftDrawerOpen.value;
     }
     const appinfo = { "name": "mks-welcome-quasar", "version": "0.0.1", "productName": "MYS MKS", "description": "evulution of the material-website" };
+    const $q = useQuasar();
     return (_ctx, _cache) => {
       const _component_router_view = resolveComponent("router-view");
       return openBlock(), createBlock(QLayout, { view: "lHh Lpr lFf" }, {
@@ -1870,12 +1872,19 @@ const _sfc_main = Object.assign({
             icon: "menu",
             "aria-label": "Menu",
             onClick: toggleLeftDrawer,
-            class: "fixed-top q-ma-sm",
+            class: "fixed-top-left q-ma-sm",
             style: { "z-index": "10000" }
           }),
+          createVNode(QBtn, {
+            class: "fixed-top-right q-ma-sm",
+            flat: "",
+            round: "",
+            onClick: _cache[0] || (_cache[0] = ($event) => unref($q).dark.toggle()),
+            icon: unref($q).dark.isActive ? "brightness_2" : "brightness_5"
+          }, null, 8, ["icon"]),
           createVNode(QDrawer, {
             modelValue: leftDrawerOpen.value,
-            "onUpdate:modelValue": _cache[0] || (_cache[0] = ($event) => leftDrawerOpen.value = $event),
+            "onUpdate:modelValue": _cache[2] || (_cache[2] = ($event) => leftDrawerOpen.value = $event),
             bordered: "",
             elevated: "",
             persistent: ""
@@ -1884,6 +1893,22 @@ const _sfc_main = Object.assign({
               createVNode(QList, { class: "q-pt-xl q-pb-xl" }, {
                 default: withCtx(() => [
                   createVNode(EssentialNavigation),
+                  createVNode(QItem, null, {
+                    default: withCtx(() => [
+                      createVNode(QItemSection, null, {
+                        default: withCtx(() => [
+                          createVNode(QBtn, {
+                            flat: "",
+                            round: "",
+                            onClick: _cache[1] || (_cache[1] = ($event) => unref($q).dark.toggle()),
+                            icon: unref($q).dark.isActive ? "brightness_2" : "brightness_5"
+                          }, null, 8, ["icon"])
+                        ]),
+                        _: 1
+                      })
+                    ]),
+                    _: 1
+                  }),
                   createVNode(QItem, null, {
                     default: withCtx(() => [
                       createVNode(QItemSection)
@@ -1896,8 +1921,8 @@ const _sfc_main = Object.assign({
                   }, {
                     default: withCtx(() => [
                       createTextVNode(toDisplayString(unref(appinfo).productName) + " v" + toDisplayString(unref(appinfo).version) + " ", 1),
-                      _cache[1] || (_cache[1] = createBaseVNode("br", null, null, -1)),
-                      createTextVNode(" Quasar v" + toDisplayString(_ctx.$q.version), 1)
+                      _cache[3] || (_cache[3] = createBaseVNode("br", null, null, -1)),
+                      createTextVNode(" Quasar v" + toDisplayString(unref($q).version), 1)
                     ]),
                     _: 1
                   })

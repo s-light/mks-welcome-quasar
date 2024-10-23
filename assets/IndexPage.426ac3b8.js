@@ -1,6 +1,6 @@
-import { u as useDarkProps, a as useDark, _ as _export_sfc } from "./plugin-vue_export-helper.9bd9e67f.js";
-import { l as createComponent, c as computed, h, m as hSlot, a as getCurrentInstance, i as inject, q as quasarKey, s as shallowRef, r as ref, n as watchEffect, p as openBlock, t as createElementBlock, u as createBlock, v as withCtx, x as createBaseVNode, j as createVNode, y as renderList, F as Fragment } from "./index.2f1f1ba2.js";
-import { Q as QPage } from "./QPage.fa7ae708.js";
+import { u as useDarkProps, a as useDark, _ as _export_sfc, b as useQuasar } from "./plugin-vue_export-helper.59929e7a.js";
+import { l as createComponent, c as computed, h, m as hSlot, a as getCurrentInstance, s as shallowRef, r as ref, n as watchEffect, p as openBlock, q as createElementBlock, t as createBlock, u as withCtx, v as createBaseVNode, j as createVNode, x as renderList, F as Fragment } from "./index.d0ec3d17.js";
+import { Q as QPage } from "./QPage.816457fd.js";
 var QCard = createComponent({
   name: "QCard",
   props: {
@@ -38,9 +38,6 @@ var QCardSection = createComponent({
     return () => h(props.tag, { class: classes.value }, hSlot(slots.default));
   }
 });
-function useQuasar() {
-  return inject(quasarKey);
-}
 var commonjsGlobal = typeof globalThis !== "undefined" ? globalThis : typeof window !== "undefined" ? window : typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : {};
 function commonjsRequire(path) {
   throw new Error('Could not dynamically require "' + path + '". Please configure the dynamicRequireTargets or/and ignoreDynamicRequires option of @rollup/plugin-commonjs appropriately for this require call to work.');
@@ -9791,7 +9788,6 @@ function imgSrcAbs(md) {
 const RE_INFO = /(?<codeLang>.*)\s\:(?<codeFilePath>.*)/;
 const embedCode = async (tokens, idx, options2, env, self2) => {
   const token2 = tokens[idx];
-  console.log(`token: `, token2);
   const reResult = RE_INFO.exec(token2.info);
   if (reResult) {
     const { codeLang, codeFilePath } = reResult.groups;
@@ -9806,9 +9802,7 @@ const embedCode = async (tokens, idx, options2, env, self2) => {
         console.log(error2);
       }
       if (codeContent) {
-        console.log("overwrite token.content.");
         token2.content = codeContent;
-        console.log("token", token2);
       }
     }
   }
@@ -63186,16 +63180,58 @@ const preProcessingMD = (source2, path_base) => {
   console.groupEnd();
   return processedObj;
 };
+const mksGetFunktionen = (mksContent2) => {
+  console.group("mksGetFunktionen");
+  if (mksContent2["funktionen"] == void 0) {
+    mksContent2["funktionen"] = {};
+  }
+  const mksFn = mksContent2["funktionen"];
+  const funktionen_dir = { "./funktionen/Entfernung/readme.md": '---\ntitel: MYS Material\ntags: "entfernung"\n---\n\n# Entfernung\n\n![Ma\xDFband](./Yellow%20Tape%20Measure.svg)\n\n## Funktionen\n\n```c++ :./example.cpp\n```\n\nSensoren die Entfernungen Messen k\xF6nnen.\nhier ist unter anderem Wichtig in welchem Bereich der jeweilige Sensor messen kann.\nes kann z.B. sein das der minimale Abstand durch aus 5cm betr\xE4gt.\nauch sind die Genauigkeit sehr unterschiedlich - von wenigen Millimetern Abweichungen bis zu mehreren Centimeter.\n\n## Anschl\xFCsse\n\n### Eingang\n\nje nach Bauteil\n\n### Ausgang\n\n-   je nach Bauteil\n\n## Kurz-Datenblatt\n\nsiehe einzelnes bauteile.\n\nRelevante Gr\xF6\xDFen:\n\n-   Messbereich\n-   Genauigkeit\n\n## Siehe Auch\n\n-   -\n\n## Bauteile\n\nTODO: ARCHITECTURE link sub-pages\n', "./funktionen/LEDs/readme.md": '---\ntags: "output, led, licht, Farbe"\n---\n\n# LEDs\n\n![LED](./led-lamp-green-on.svg)\n\n## Funktionen\n\nDer Motortreiber \xFCbersetzt die schwachen Signale & Spannungen des micro-controllers (Arduino / RaspberryPi) in Starke Spannungen & Str\xF6me um die verschiedenen [Motoren](./motor/) an zu steuern (zu _treiben_).\n\n## Anschl\xFCsse\n\n### Eingang\n\nje nach Bauteil\n\n-   I2C\n-   Digital IO\n\n### Ausgang\n\n-   High Power / High Voltage\n\n## Kurz-Datenblatt\n\nsiehe einzelnes bauteile.\n\n-   Signal Eingang: 3-5V\n-   Betriebsspannung: 5-12V\n-   Ausgang Strom Max: 2A\n\n## Siehe Auch\n\n-   x\n\n## Bauteile\n\n', "./funktionen/Motortreiber/readme.md": '---\ntags: "motor, motortreiber"\n---\n\n# Motortreiber\n\n![Motortreiber allgemein](https://makeyourschool.de/wp-content/uploads/2018/10/70_motortreiber-1024x1024.jpg)\n\nTODO: CONTENT change image to general\n\n## Funktionen\n\nDer Motortreiber \xFCbersetzt die schwachen Signale & Spannungen des micro-controllers (Arduino / RaspberryPi) in Starke Spannungen & Str\xF6me um die verschiedenen [Motoren](./motor/) an zu steuern (zu _treiben_).\n\n## Anschl\xFCsse\n\n### Eingang\n\nje nach Bauteil\n\n-   I2C\n-   Digital IO\n\n### Ausgang\n\n-   High Power / High Voltage\n\n## Kurz-Datenblatt\n\nsiehe einzelnes bauteile.\n\n-   Signal Eingang: 3-5V\n-   Betriebsspannung: 5-12V\n-   Ausgang Strom Max: 2A\n\n## Siehe Auch\n\n-   [Motoren](./motor/)\n\n## Bauteile\nTODO: ARCHITECTURE link sub-pages\n', "./funktionen/Schalter/readme.md": '---\ntags: "input"\n---\n\n# Taster & Schalter\n\n![Taster allgemein](https://makeyourschool.de/wp-content/uploads/2018/10/59_taster_knopf-1024x1024.jpg)\n<!-- TODO: CONTENT change image to general -->\n\n## Funktionen\n\nDer Taster / Schalter ist ein *Input*.\n\nDer Unterschied zwischen Taster und Schalter:\n- Taster: nur solange *an* wie er Bet\xE4tigt (z.B: gedr\xFCckt) wird\n- Schalter: Bet\xE4tigung/Aktion wechselt den Zustand zwischen an und aus\n\nwenn ein Taster/Schalter **an** ist sind die Kontakte verbunden.\nwenn er **aus** ist sind die kontakte unverbunden.\ndiesen unterschied kann ein uC *messen*.\n\nes gibt diese in sehr vielen verschiedenen Ausf\xFChrungen.\n\n\n## Anschl\xFCsse\n\n### Eingang\n\n- Mechanische Bet\xE4tigung\n\n### Ausgang\n\n-   Zwei *Pins* werden *verbunden\n\n## Kurz-Datenblatt\n\nsiehe bauteile\n\n## Siehe Auch\n\n-   *-*\n\n## Weiterf\xFChrende Hintergrundinformationen:\n\n    [Schalter (Elektrotechnik) \u2013 Wikipedia Artikel](https://de.wikipedia.org/wiki/Schalter_(Elektrotechnik))\n    [Positionsschalter \u2013 Wikipedia Artikel](https://de.wikipedia.org/wiki/Positionsschalter)\n    [GPIO \u2013 Wikipedia Artikel](https://de.wikipedia.org/wiki/Allzweckeingabe/-ausgabe)\n\n\n## Bauteile\n<!-- TODO: ARCHITECTURE link sub-pages  -->\n<!-- in `bauteile` folder -->\n' };
+  for (const path in funktionen_dir) {
+    const fn_name = path.replace("./funktionen/", "").replace("/readme.md", "");
+    if (mksFn[fn_name] == void 0) {
+      mksFn[fn_name] = {};
+    }
+    mksFn[fn_name].path_readme = path;
+    mksFn[fn_name].path_base = path.replace("./", "mks/").replace("/readme.md", "/");
+    mksFn[fn_name].readme = preProcessingMD(funktionen_dir[path], mksFn[fn_name].path_base);
+  }
+  console.groupEnd();
+};
+const mksGetFnBauteile = (mksContent2) => {
+  console.group("mksGetFnBauteile");
+  const mksFn = mksContent2["funktionen"];
+  const bauteile_dir = { "./funktionen/Entfernung/bauteile/mks-GroveUltraschall/readme.md": "# Grove Ultraschall Entfernungsmesser\n\n![Bauteil](https://makeyourschool.de/wp-content/uploads/2018/10/17_ultraschallentfernungssensor-1024x1024.jpg)\n<!-- TODO: CONTENT change image -->\n<!-- TODO: ARCHITECTURE multiple images? -->\n<!-- do we need multiple images per part?-->\n<!-- and if do we need a slider? -->\n\n## Beschreibung\n\nkurz-Beschreibung\n\n```c++ :./example.cpp\n```\n\n## Anschl\xFCsse\n\n### Eingang\n\n-   I2C\n\n### Ausgang\n\n-   High Power / High Voltage\n\n## Kurz-Datenblatt\n\n-   Signal Eingang: 3-5V\n-   Betriebsspannung: 5-12V\n-   Ausgang Strom Max: 2A\n\n## Siehe Auch\n\n-   falls vorhanden link zu anderem Bauteil / zugeh\xF6rigem part\n\n\n\n## library\num dieses Bauteil zu benutzen verwende / installiere bitte diese Library: LibraryName\n<!-- TODO: CONTENT change library name -->\n\n## Beispiel\n\nschau dir das Minimal-Beispiel an\n```c++ :./examples/BauteilTemplate_minimal/BauteilTemplate_minimal.ino\n```\n\n\n## Anleitung\n\n<!-- TODO: CONTENT change guide -->\n- nimm Bauteil\n- Schlie\xDFe an Port D2 an\n- nehm Beispiel Code\n    - kopiere von hier dr\xFCber\n    - oder direkt in der Arduino IDE:\n        `Datei-Beispiele-MakeYourSchool-FunktionsNamen-BauteilNamen-Minimal`\n- Sketch Hochladen\n- Das Sollte nun passieren:\n    - die LED Blinkt im 1 Sekunden Takt\n", "./funktionen/LEDs/bauteile/mks-LED-Streifen/readme.md": "# Pixel LED-Streifen\n\nmks Nr 65\n\nAndere Namen:\n- Neopixel\n- Dotstar\n- WS2811\n- APA102\n\n![LED-Streifen](https://makeyourschool.de/wp-content/uploads/2018/08/65_led-streifen-1024x1024.jpg)\n\n## Beschreibung\nLED-Streifen sind Flexible B\xE4nder auf denen in bestimmtem Abstand `Adresierbare LED's` aufgel\xF6tete sind.\njeder *Pixel* beinhaltet einen kleinen controller chip (meist schwarzen - dem LED-Treiber) und den meist drei eigentlichen LEDs in den Licht-Grundfarben Rot, Gr\xFCn und Blau.\nJeder *Pixel* kann einzeln *Adressiert* werden (Entspricht einem Haus in einer Stra\xDFe).\ndabei k\xF6nnen alle drei Grundfarben einzeln in ihrere Helligkeit (255 Stufen) eingestellt werden -\ndadurch k\xF6nnen alle Regenbogen Farben + Wei\xDF erzeugt werden.\n\n## Anschl\xFCsse\n\n### Eingang\n\n-   Serielle Daten\n\n### Ausgang\n\n-   Licht\n\n## Kurz-Datenblatt\n\n-   Signal Eingang: 3-5V\n-   Betriebsspannung: 3-5V\n-   ben\xF6tigter Strom: 20mA-60mA pro Pixel\n\nBeispiel:\n10 Pixel * 60mA = 600mA = 0,6A\n\n\n## Siehe Auch\n\n-   falls vorhanden link zu anderem Bauteil / zugeh\xF6rigem part\n\n## library\n\num dieses Bauteil zu benutzen verwende / installiere bitte diese Library: [fastled](https://fastled.io/)\n\n## Beispiel\n\nschau dir das Minimal-Beispiel an:\n\n```c++:./examples/pixel_minimal/pixel_minimal.ino\n// this should be overwritten!\n```\n\n## Anleitung\n\n<!-- TODO: CONTENT change guide -->\n\n-   nimm Bauteil\n-   Schlie\xDFe an Port D2 an\n-   nehm Beispiel Code\n    -   kopiere von hier dr\xFCber\n    -   oder direkt in der Arduino IDE:\n        `Datei-Beispiele-MakeYourSchool-FunktionsNamen-BauteilNamen-Minimal`\n-   Sketch Hochladen\n-   Das Sollte nun passieren:\n    -   die LED Blinkt im 1 Sekunden Takt\n", "./funktionen/Motortreiber/bauteile/mks-GroveMotortreiberI2C/readme.md": "# Grove motortreiber I2C\n\nmks Nr 70\n\n![Bauteil](https://makeyourschool.de/wp-content/uploads/2018/10/70_motortreiber-1024x1024.jpg)\n\n<!-- TODO: ARCHITECTURE multiple images? -->\n<!-- do we need multiple images per part?-->\n<!-- and if do we need a slider? -->\n\n## Beschreibung\n\nkurz-Beschreibung\n\n## Anschl\xFCsse\n\n### Eingang\n\n-   I2C\n\n### Ausgang\n\n-   High Power / High Voltage\n\n## Kurz-Datenblatt\n\n-   Signal Eingang: 3-5V\n-   Betriebsspannung: 5-12V\n-   Ausgang Strom Max: 1A\n\n## Siehe Auch\n\n-   falls vorhanden link zu anderem Bauteil / zugeh\xF6rigem part\n\n## library\n\num dieses Bauteil zu benutzen verwende / installiere bitte diese Library: LibraryName\n\n<!-- TODO: CONTENT change library name -->\n\n## Beispiel\n\nschau dir das Minimal-Beispiel an:\n\n```c++:./examples/grove_motortreiber_minimal/grove_motortreiber_minimal.ino\n// this should be overwritten!\n```\n\n## Anleitung\n\n<!-- TODO: CONTENT change guide -->\n\n-   nimm Bauteil\n-   Schlie\xDFe an Port D2 an\n-   nehm Beispiel Code\n    -   kopiere von hier dr\xFCber\n    -   oder direkt in der Arduino IDE:\n        `Datei-Beispiele-MakeYourSchool-FunktionsNamen-BauteilNamen-Minimal`\n-   Sketch Hochladen\n-   Das Sollte nun passieren:\n    -   die LED Blinkt im 1 Sekunden Takt\n", "./funktionen/Schalter/bauteile/mks-Endschalter/readme.md": "# Endschalter\n\n![Bauteil](./bauteil.jpg)\n<!-- TODO: CONTENT change image -->\n<!-- TODO: ARCHITECTURE multiple images? -->\n<!-- do we need multiple images per part?-->\n<!-- and if do we need a slider? -->\n\n## Beschreibung\n\nDer Endschalter funktioniert wie ein normaler Schalter und kann als Eingabe f\xFCr einen Mikrocontroller verwendet werden. \nDer Schalter besitzt einen elastischen Schaltarm, der einen elektrischen Kontakt zwischen den Anschlusspins herstellt, wenn der Arm gedr\xFCckt wird.\n\nDer Endschalter kommt vor allem bei Robotern oder anderen bewegten Maschinen zum Einsatz, um Kollisionen zu erkennen und zu vermeiden. \nSo kann dieser zum Beispiel an einem Roboter angebaut werden - wenn der Roboter dann gegen ein Hindernis f\xE4hrt, \nwird der Endschalter bet\xE4tigt bevor der Roboter das Hindernis wirklich ber\xFChrt.\nSo wird die bevorstehende Kollision erkannt und kann vermieden werden. (z.B. f\xE4hrt der Roboter dann R\xFCckw\xE4rts vom Hindernis weg.)\n\n## Anschl\xFCsse\n\n### Eingang\n\n-   Mechanische Bet\xE4tigung\n\n### Ausgang\n\n-   3 Kontakte (NC-C-NO)\n    - C = Common (gemeinsamer Anschluss)\n    - NC = Normal Closed (im unged\xFCrckten zustand mit C verbunden)\n    - NO = Normal Open (im ged\xFCrckten zustand mit C verbunden)\n\n## Kurz-Datenblatt\n\n-   Schaltleistung: 5A 125VAC\n\n[Hersteller Datenblatt](https://asset.conrad.com/media10/add/160267/c1/-/de/000707243DS01/datenblatt-707243-hartmann-mikroschalter-mbb1-01-a-01-c-09-a-250-vac-5-a-1-x-einein-tastend-1-st.pdf)\n\n## Siehe Auch\n\n-   -\n\n\n\n## library\nkeine library n\xF6tig.\n\n## Beispiel\n\nschau dir das Minimal-Beispiel an:\n<!-- TODO: ARCHITECTURE include example *_minimal.ino-->\n\n## Anleitung\n\n- schlie\xDFe den Endschalter wie folgt an:\n    - C an GND\n    - NO an D2\n- nehm Beispiel Code \n    - kopiere von hier dr\xFCber in neuen leeren arduino sketch\n    - oder direkt \xFCber das Men\xFC der Arduino IDE *1: \n        `Datei-Beispiele-MakeYourSchool-Taster-Endschalter-Endschalter_Minimal`\n- Sketch Hochladen\n- Das Sollte nun passieren:\n    - \xD6ffne den Serial-Monitor (Symbol ganz rechts oben in der IDE)\n    - Wenn du nun den Endschalter dr\xFCckst sollte `Endschalter wurde gerade gedr\xFCckt!` angezeigt werden.\n    - Wenn du ihn wieder los l\xE4sst sollte `Endschalter wurde wieder ge\xF6ffnet` angezeigt werden.\n\n*1: daf\xFCr musst du einmalig die `MakeYourSchool` library installiert haben.\ndiese bringt alle hier im system vorhandenen Beispielcodes in die IDE..\n", "./funktionen/Schalter/bauteile/mks-GroveTaster/readme.md": "# Taster (Grove)\n\n![Bauteil](https://makeyourschool.de/wp-content/uploads/2018/10/60_taster_knopf_platine-1024x1024.jpg)\n<!-- TODO: CONTENT change image -->\n<!-- TODO: ARCHITECTURE multiple images? -->\n<!-- do we need multiple images per part?-->\n<!-- and if do we need a slider? -->\n\n## Beschreibung\n\nein einfacher Taster.\nauf einer Platine mit einem Grove-Buchse verl\xF6tete.\ndadurch ist der Anschluss super einfach :-)\n\n## Anschl\xFCsse\n\n### Eingang\n\n-   Mechanische Bet\xE4tigung\n\n### Ausgang\n\n-   5V Signal (auf Grove Buchse)\n\n## Kurz-Datenblatt\n\n-   Betriebsspannung: 3.3-5V\n\n## Siehe Auch\n\n-   -\n\n\n\n## library\nkeine library n\xF6tig.\n\n## Beispiel\n\nschau dir das Minimal-Beispiel an:\n\n```c++:./examples/taster/taster.ino\n// this should be overwritten!\n```\n\n## Anleitung\n\n<!-- TODO: CONTENT change guide -->\n- nimm Bauteil\n- Schlie\xDFe an Port D2 an\n- nehm Beispiel Code\n    - kopiere von hier dr\xFCber\n    - oder direkt in der Arduino IDE:\n        `Datei-Beispiele-MakeYourSchool-FunktionsNamen-BauteilNamen-Minimal`\n- Sketch Hochladen\n- Das Sollte nun passieren:\n    - die LED Blinkt im 1 Sekunden Takt\n", "./funktionen/Schalter/bauteile/mks-Taster/readme.md": "# Taster\n\n![Bauteil](https://makeyourschool.de/wp-content/uploads/2018/10/59_taster_knopf-1024x1024.jpg)\n<!-- TODO: CONTENT change image -->\n<!-- TODO: ARCHITECTURE multiple images? -->\n<!-- do we need multiple images per part?-->\n<!-- and if do we need a slider? -->\n\n## Beschreibung\n\nein einfacher Taster\n\n## Anschl\xFCsse\n\n### Eingang\n\n-   Mechanische Bet\xE4tigung\n\n### Ausgang\n\n-   ...\n\n## Kurz-Datenblatt\n\n-   Betriebsspannung: 3.3-5V\n\n## Siehe Auch\n\n-   https://makeyourschool.de/maker-ecke/material/taster-knopf/\n\n\n\n## library\nkeine library n\xF6tig\n<!-- TODO: CONTENT change library name -->\n\n## Beispiel\n\nschau dir das Minimal-Beispiel an:\n<!-- TODO: ARCHITECTURE include example *_minimal.ino-->\n\n## Anleitung\n\n<!-- TODO: CONTENT change guide -->\n- nimm Bauteil\n- Schlie\xDFe an Port D2 an\n- nehm Beispiel Code \n    - kopiere von hier dr\xFCber\n    - oder direkt in der Arduino IDE: \n        `Datei-Beispiele-MakeYourSchool-FunktionsNamen-BauteilNamen-Minimal`\n- Sketch Hochladen\n- Das Sollte nun passieren:\n    - die LED Blinkt im 1 Sekunden Takt\n" };
+  const path_regex = /\.\/funktionen\/(?<fn_name>.*)\/bauteile\/(?<part_name>.*)\/readme\.md/;
+  for (const path in bauteile_dir) {
+    const { fn_name, part_name } = path_regex.exec(path).groups;
+    if (mksFn[fn_name] == void 0) {
+      mksFn[fn_name] = {};
+    }
+    if (mksFn[fn_name].bauteile == void 0) {
+      mksFn[fn_name].bauteile = {};
+    }
+    const bauteile = mksFn[fn_name].bauteile;
+    bauteile[part_name] = {};
+    bauteile[part_name]["path_readme"] = path;
+    bauteile[part_name]["path_base"] = path.replace("./", "mks/").replace("/readme.md", "/");
+    bauteile[part_name].readme = grayMatter(bauteile_dir[path], { eval: false });
+    console.log(`${fn_name} - ${part_name}`, bauteile[part_name]);
+  }
+  console.groupEnd();
+};
 const mksGetContent = () => {
   console.group("mksContent");
   let mksContent2 = {
     welcome: {},
     funktionen: {}
   };
-  let temp = { "./readme.md": '---\ntitel: MYS Material\ntags: "welcome"\n---\n\n# MYS Material\n\nhier findet ihr eine Liste aller MYS Materialien:\n\n[ping](https://s-light.eu)\n\n:tada:\n:100:\n\n![test image](./test_image.png)\n\n<style>\n    img {\n        max-width: 200px;\n    }\n</style>\n\n\n### test for code-highlight\n\n```c++\nunsigned long nextEvent = 0;\nconst unsigned long duration= 1000;\n```\n\n### test for include\n<!-- @include ./examples/pixel_minimal/pixel_minimal.ino -->\n\n```c++ :./example.cpp\n// ./example.cpp\n```\n\n# Funktionen\n' };
+  let temp = { "./readme.md": '---\ntitel: MYS Material\ntags: "welcome"\n---\n\n# MYS Material\n\nhier findet ihr eine Liste aller MYS Materialien..\n:tada:\n\n[mks](https://makeyourschool.de/maker-ecke/material/)\n\n```c++ :./example.cpp\n```\n\n```c++ :./nothinghere.cpp\nfails to import.\n```\n\nTODO: implement search & filtering\n\n# Funktionen\n' };
   const path_base = "mks/";
   mksContent2["welcome"].readme = preProcessingMD(temp["./readme.md"], path_base);
   mksContent2["welcome"]["path_base"] = path_base;
+  mksGetFunktionen(mksContent2);
+  mksGetFnBauteile(mksContent2);
   console.groupEnd();
   return mksContent2;
 };
@@ -63209,13 +63245,11 @@ const _sfc_main = {
     console.log("mksContent", mksContent);
     const mks_welcome = ref(mksContent["welcome"]);
     const mks_funktionen = ref(mksContent["funktionen"]);
-    const $q = useQuasar();
-    $q.dark.set(true);
+    useQuasar();
     return (_ctx, _cache) => {
       return openBlock(), createBlock(QPage, { class: "" }, {
         default: withCtx(() => [
           createBaseVNode("section", null, [
-            _cache[0] || (_cache[0] = createBaseVNode("div", null, "Markdown document loaded and rendered here:", -1)),
             createVNode(_sfc_main$1, {
               source: mks_welcome.value.readme.content,
               "file-path": mks_welcome.value.path_base
@@ -63261,5 +63295,5 @@ const _sfc_main = {
     };
   }
 };
-var IndexPage = /* @__PURE__ */ _export_sfc(_sfc_main, [["__scopeId", "data-v-c26227fa"]]);
+var IndexPage = /* @__PURE__ */ _export_sfc(_sfc_main, [["__scopeId", "data-v-5dbaa90f"]]);
 export { IndexPage as default };

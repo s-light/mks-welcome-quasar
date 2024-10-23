@@ -1,4 +1,4 @@
-import { c as computed } from "./index.2f1f1ba2.js";
+import { c as computed, i as inject, C as quasarKey } from "./index.d0ec3d17.js";
 const useDarkProps = {
   dark: {
     type: Boolean,
@@ -8,6 +8,9 @@ const useDarkProps = {
 function useDark(props, $q) {
   return computed(() => props.dark === null ? $q.dark.isActive : props.dark);
 }
+function useQuasar() {
+  return inject(quasarKey);
+}
 var _export_sfc = (sfc, props) => {
   const target = sfc.__vccOpts || sfc;
   for (const [key, val] of props) {
@@ -15,4 +18,4 @@ var _export_sfc = (sfc, props) => {
   }
   return target;
 };
-export { _export_sfc as _, useDark as a, useDarkProps as u };
+export { _export_sfc as _, useDark as a, useQuasar as b, useDarkProps as u };

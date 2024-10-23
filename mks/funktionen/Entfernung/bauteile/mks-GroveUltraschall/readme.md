@@ -10,6 +10,9 @@
 
 kurz-Beschreibung
 
+```c++ :./example.cpp
+```
+
 ## Anschlüsse
 
 ### Eingang
@@ -39,7 +42,9 @@ um dieses Bauteil zu benutzen verwende / installiere bitte diese Library: Librar
 ## Beispiel
 
 schau dir das Minimal-Beispiel an
-<!-- @include: ./examples/BauteilTemplate_minimal/BauteilTemplate_minimal.ino -->
+```c++ :./examples/BauteilTemplate_minimal/BauteilTemplate_minimal.ino
+```
+
 
 ## Anleitung
 
