@@ -189,6 +189,9 @@ SOFTWARE.
 .my-markdown h6 {
   font-size: 1rem;
 }
+.my-markdown img {
+  max-width: 10vw;
+}
 .my-card .my-markdown h1:nth-child(1) {
   position: sticky;
   top: 1rem;

@@ -4964,6 +4964,9 @@ const useSSRContext = () => {
     return ctx;
   }
 };
+function watchEffect(effect, options) {
+  return doWatch(effect, null, options);
+}
 function watch(source, cb, options) {
   return doWatch(source, cb, options);
 }
@@ -9700,32 +9703,32 @@ const childrenCommon = [
     title: "md test",
     icon: "brush",
     path: "/",
-    component: () => __vitePreload(() => import("./IndexPage.d95d4239.js"), true ? ["assets/IndexPage.d95d4239.js","assets/IndexPage.128b4b3a.css","assets/plugin-vue_export-helper.817cc9cd.js","assets/QPage.cb154292.js"] : void 0)
+    component: () => __vitePreload(() => import("./IndexPage.c65d240e.js"), true ? ["assets/IndexPage.c65d240e.js","assets/IndexPage.ba9bfdb1.css","assets/plugin-vue_export-helper.9bd9e67f.js","assets/QPage.fa7ae708.js"] : void 0)
   },
   {
     title: "About",
     icon: "info",
     path: "about",
-    component: () => __vitePreload(() => import("./AboutPage.1a79a946.js"), true ? ["assets/AboutPage.1a79a946.js","assets/QPage.cb154292.js"] : void 0)
+    component: () => __vitePreload(() => import("./AboutPage.eb2647ab.js"), true ? ["assets/AboutPage.eb2647ab.js","assets/QPage.fa7ae708.js"] : void 0)
   },
   {
     title: "Settings",
     icon: "settings",
     path: "settings",
-    component: () => __vitePreload(() => import("./SettingsPage.48554c61.js"), true ? ["assets/SettingsPage.48554c61.js","assets/QPage.cb154292.js"] : void 0)
+    component: () => __vitePreload(() => import("./SettingsPage.1fa488de.js"), true ? ["assets/SettingsPage.1fa488de.js","assets/QPage.fa7ae708.js"] : void 0)
   }
 ];
 const routes = [
   {
     path: "/",
-    component: () => __vitePreload(() => import("./MainLayout.77c30ada.js"), true ? ["assets/MainLayout.77c30ada.js","assets/plugin-vue_export-helper.817cc9cd.js"] : void 0),
+    component: () => __vitePreload(() => import("./MainLayout.b852f872.js"), true ? ["assets/MainLayout.b852f872.js","assets/plugin-vue_export-helper.9bd9e67f.js"] : void 0),
     children: [
       ...childrenCommon
     ]
   },
   {
     path: "/:catchAll(.*)*",
-    component: () => __vitePreload(() => import("./ErrorNotFound.c65e3ffe.js"), true ? [] : void 0)
+    component: () => __vitePreload(() => import("./ErrorNotFound.1d128452.js"), true ? [] : void 0)
   }
 ];
 var createRouter = route(function() {
@@ -11550,11 +11553,11 @@ createQuasarApp(createApp, quasarUserOptions).then((app2) => {
     (bootFiles) => bootFiles.map((entry) => entry.default)
   ];
   return Promise[method]([
-    __vitePreload(() => import("./i18n.cbea43fc.js"), true ? [] : void 0),
-    __vitePreload(() => import("./addressbar-color.e5865314.js"), true ? [] : void 0)
+    __vitePreload(() => import("./i18n.bf829747.js"), true ? [] : void 0),
+    __vitePreload(() => import("./addressbar-color.41ea3b22.js"), true ? [] : void 0)
   ]).then((bootFiles) => {
     const boot2 = mapFn(bootFiles).filter((entry) => typeof entry === "function");
     start(app2, boot2);
   });
 });
-export { addEvt as $, AddressbarColor as A, pageContainerKey as B, toDisplayString as C, unref as D, createTextVNode as E, Fragment as F, useRouterLinkProps as G, useRouterLink as H, isKeyCode as I, stopAndPrevent as J, hUniqueSlot as K, onBeforeUnmount as L, History as M, vmHasRouter as N, nextTick as O, css as P, getElement as Q, client as R, listenOpts as S, Text as T, getEventPath as U, onDeactivated as V, vmIsDestroyed as W, Platform as X, createDirective as Y, noop$1 as Z, leftClick as _, getCurrentInstance as a, preventDraggable as a0, prevent as a1, stop as a2, position as a3, cleanEvt as a4, withDirectives as a5, hDir as a6, provide as a7, isRuntimeSsrPreHydration as a8, reactive as a9, hMergeSlot as aa, childrenCommon as ab, QIcon as ac, resolveComponent as ad, QBtn as ae, onUnmounted as b, computed as c, defineComponent as d, effectScope as e, isRef as f, global as g, h, inject as i, createVNode as j, boot as k, createComponent as l, hSlot as m, openBlock as n, onMounted as o, createElementBlock as p, quasarKey as q, ref as r, shallowRef as s, createBlock as t, withCtx as u, createBaseVNode as v, watch as w, renderList as x, emptyRenderFn as y, layoutKey as z };
+export { leftClick as $, AddressbarColor as A, layoutKey as B, pageContainerKey as C, toDisplayString as D, unref as E, Fragment as F, createTextVNode as G, useRouterLinkProps as H, useRouterLink as I, isKeyCode as J, stopAndPrevent as K, hUniqueSlot as L, onBeforeUnmount as M, History as N, vmHasRouter as O, nextTick as P, css as Q, getElement as R, client as S, Text as T, listenOpts as U, getEventPath as V, onDeactivated as W, vmIsDestroyed as X, Platform as Y, createDirective as Z, noop$1 as _, getCurrentInstance as a, addEvt as a0, preventDraggable as a1, prevent as a2, stop as a3, position as a4, cleanEvt as a5, withDirectives as a6, hDir as a7, provide as a8, isRuntimeSsrPreHydration as a9, reactive as aa, hMergeSlot as ab, childrenCommon as ac, QIcon as ad, resolveComponent as ae, QBtn as af, onUnmounted as b, computed as c, defineComponent as d, effectScope as e, isRef as f, global as g, h, inject as i, createVNode as j, boot as k, createComponent as l, hSlot as m, watchEffect as n, onMounted as o, openBlock as p, quasarKey as q, ref as r, shallowRef as s, createElementBlock as t, createBlock as u, withCtx as v, watch as w, createBaseVNode as x, renderList as y, emptyRenderFn as z };
