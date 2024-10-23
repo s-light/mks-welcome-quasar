@@ -1,22 +1,6 @@
-import { l as createComponent, c as computed, h, m as hSlot, a as getCurrentInstance, i as inject, q as quasarKey, s as shallowRef, n as openBlock, p as createElementBlock, r as ref, t as createBlock, u as withCtx, v as createBaseVNode, j as createVNode, x as renderList, F as Fragment } from "./index.2ba7ef10.js";
-import { u as useDarkProps, a as useDark, _ as _export_sfc } from "./plugin-vue_export-helper.e2d486a5.js";
-import { Q as QPage } from "./QPage.ace6ca73.js";
-var QCardSection = createComponent({
-  name: "QCardSection",
-  props: {
-    tag: {
-      type: String,
-      default: "div"
-    },
-    horizontal: Boolean
-  },
-  setup(props, { slots }) {
-    const classes = computed(
-      () => `q-card__section q-card__section--${props.horizontal === true ? "horiz row no-wrap" : "vert"}`
-    );
-    return () => h(props.tag, { class: classes.value }, hSlot(slots.default));
-  }
-});
+import { u as useDarkProps, a as useDark, _ as _export_sfc } from "./plugin-vue_export-helper.817cc9cd.js";
+import { l as createComponent, c as computed, h, m as hSlot, a as getCurrentInstance, i as inject, q as quasarKey, s as shallowRef, n as openBlock, p as createElementBlock, r as ref, t as createBlock, u as withCtx, v as createBaseVNode, j as createVNode, x as renderList, F as Fragment } from "./index.da7c6027.js";
+import { Q as QPage } from "./QPage.cb154292.js";
 var QCard = createComponent({
   name: "QCard",
   props: {
@@ -34,6 +18,22 @@ var QCard = createComponent({
     const isDark = useDark(props, $q);
     const classes = computed(
       () => "q-card" + (isDark.value === true ? " q-card--dark q-dark" : "") + (props.bordered === true ? " q-card--bordered" : "") + (props.square === true ? " q-card--square no-border-radius" : "") + (props.flat === true ? " q-card--flat no-shadow" : "")
+    );
+    return () => h(props.tag, { class: classes.value }, hSlot(slots.default));
+  }
+});
+var QCardSection = createComponent({
+  name: "QCardSection",
+  props: {
+    tag: {
+      type: String,
+      default: "div"
+    },
+    horizontal: Boolean
+  },
+  setup(props, { slots }) {
+    const classes = computed(
+      () => `q-card__section q-card__section--${props.horizontal === true ? "horiz row no-wrap" : "vert"}`
     );
     return () => h(props.tag, { class: classes.value }, hSlot(slots.default));
   }
@@ -8498,7 +8498,7 @@ var punycode$1 = { exports: {} };
       return floor(k + (baseMinusTMin + 1) * delta2 / (delta2 + skew));
     }
     function decode2(input) {
-      var output = [], inputLength = input.length, out, i2 = 0, n2 = initialN, bias = initialBias, basic2, j, index, oldi, w2, k, digit, t2, baseMinusT;
+      var output = [], inputLength = input.length, out, i2 = 0, n2 = initialN, bias = initialBias, basic2, j, index, oldi, w, k, digit, t2, baseMinusT;
       basic2 = input.lastIndexOf(delimiter);
       if (basic2 < 0) {
         basic2 = 0;
@@ -8510,24 +8510,24 @@ var punycode$1 = { exports: {} };
         output.push(input.charCodeAt(j));
       }
       for (index = basic2 > 0 ? basic2 + 1 : 0; index < inputLength; ) {
-        for (oldi = i2, w2 = 1, k = base; ; k += base) {
+        for (oldi = i2, w = 1, k = base; ; k += base) {
           if (index >= inputLength) {
             error2("invalid-input");
           }
           digit = basicToDigit(input.charCodeAt(index++));
-          if (digit >= base || digit > floor((maxInt - i2) / w2)) {
+          if (digit >= base || digit > floor((maxInt - i2) / w)) {
             error2("overflow");
           }
-          i2 += digit * w2;
+          i2 += digit * w;
           t2 = k <= bias ? tMin : k >= bias + tMax ? tMax : k - bias;
           if (digit < t2) {
             break;
           }
           baseMinusT = base - t2;
-          if (w2 > floor(maxInt / baseMinusT)) {
+          if (w > floor(maxInt / baseMinusT)) {
             error2("overflow");
           }
-          w2 *= baseMinusT;
+          w *= baseMinusT;
         }
         out = output.length + 1;
         bias = adapt(i2 - oldi, out, oldi == 0);
@@ -8909,8 +8909,8 @@ MarkdownIt.prototype.renderInline = function(src, env) {
 };
 var lib$1 = MarkdownIt;
 var markdownIt = lib$1;
-function getDefaultExportFromCjs(x2) {
-  return x2 && x2.__esModule && Object.prototype.hasOwnProperty.call(x2, "default") ? x2["default"] : x2;
+function getDefaultExportFromCjs(x) {
+  return x && x.__esModule && Object.prototype.hasOwnProperty.call(x, "default") ? x["default"] : x;
 }
 var browser = { exports: {} };
 var process = browser.exports = {};
@@ -9153,8 +9153,8 @@ function p(e2, n2, t2, r2) {
     a2 = e2 + "-" + i2, i2 += 1;
   return n2[a2] = true, a2;
 }
-function b$1(e2, n2) {
-  n2 = Object.assign({}, b$1.defaults, n2), e2.core.ruler.push("anchor", function(e3) {
+function b(e2, n2) {
+  n2 = Object.assign({}, b.defaults, n2), e2.core.ruler.push("anchor", function(e3) {
     for (var t2, a2 = {}, i2 = e3.tokens, l2 = Array.isArray(n2.level) ? (t2 = n2.level, function(e4) {
       return t2.includes(e4);
     }) : function(e4) {
@@ -9170,7 +9170,7 @@ function b$1(e2, n2) {
     }
   });
 }
-Object.assign(f.defaults, { style: "visually-hidden", space: true, placement: "after", wrapper: null }), b$1.permalink = { __proto__: null, legacy: r$1, renderHref: a, renderAttrs: i$2, makePermalink: o, linkInsideHeader: s, ariaHidden: u, headerLink: d$1, linkAfterHeader: f }, b$1.defaults = { level: 1, slugify: function(e2) {
+Object.assign(f.defaults, { style: "visually-hidden", space: true, placement: "after", wrapper: null }), b.permalink = { __proto__: null, legacy: r$1, renderHref: a, renderAttrs: i$2, makePermalink: o, linkInsideHeader: s, ariaHidden: u, headerLink: d$1, linkAfterHeader: f }, b.defaults = { level: 1, slugify: function(e2) {
   return encodeURIComponent(String(e2).trim().toLowerCase().replace(/\s+/g, "-"));
 }, uniqueSlugStartIndex: 1, tabIndex: "-1", getTokensText: function(e2) {
   return e2.filter(function(e3) {
@@ -9178,7 +9178,7 @@ Object.assign(f.defaults, { style: "visually-hidden", space: true, placement: "a
   }).map(function(e3) {
     return e3.content;
   }).join("");
-}, permalink: false, renderPermalink: r$1, permalinkClass: u.defaults.class, permalinkSpace: u.defaults.space, permalinkSymbol: "\xB6", permalinkBefore: "before" === u.defaults.placement, permalinkHref: u.defaults.renderHref, permalinkAttrs: u.defaults.renderAttrs }, b$1.default = b$1;
+}, permalink: false, renderPermalink: r$1, permalinkClass: u.defaults.class, permalinkSpace: u.defaults.space, permalinkSymbol: "\xB6", permalinkBefore: "before" === u.defaults.placement, permalinkHref: u.defaults.renderHref, permalinkAttrs: u.defaults.renderAttrs }, b.default = b;
 var empty = null;
 var empty_1 = empty;
 var upath = {};
@@ -9764,143 +9764,6 @@ var pathBrowserify = posix;
     }
   }
 })(upath);
-const b = /\r\n?|\n/g, E = (e2) => {
-  const r2 = e2.split(`
-`), i2 = r2.reduce((l2, s2) => {
-    for (let n2 = 0; n2 < s2.length; n2++)
-      if (s2[n2] !== " " && s2[n2] !== "	")
-        return Math.min(n2, l2);
-    return l2;
-  }, 1 / 0);
-  return i2 < 1 / 0 ? r2.map((l2) => l2.slice(i2)).join(`
-`) : e2;
-}, S = [/^\/\/ ?#?((?:end)?region) ([\w*-]+)$/, /^\/\* ?#((?:end)?region) ([\w*-]+) ?\*\/$/, /^#pragma ((?:end)?region) ([\w*-]+)$/, /^<!-- #?((?:end)?region) ([\w*-]+) -->$/, /^#((?:End )Region) ([\w*-]+)$/, /^::#((?:end)region) ([\w*-]+)$/, /^# ?((?:end)?region) ([\w*-]+)$/], I = /^( *)<!-{2,}\s*@include:\s*([^<>|:"*?]+(?:\.[a-z0-9]+))(?:#([\w-]+))?(?:\{(\d+)?-(\d+)?\})?\s*-{2,}>\s*$/gm, x = /^( *)@include:\s*([^<>|:"*?]+(?:\.[a-z0-9]+))(?:#([\w-]+))?(?:\{(\d+)?-(\d+)?\})?\s*$/gm, $ = (e2, r2, i2, l2 = false) => {
-  var _a;
-  const [s2, n2, t2] = (_a = r2.exec(e2.trim())) != null ? _a : [];
-  return !!(s2 && n2 && t2 === i2 && n2.match(l2 ? /^[Ee]nd ?[rR]egion$/ : /^[rR]egion$/));
-}, y = (e2, r2) => {
-  let i2 = null, l2 = -1;
-  for (const [s2, n2] of e2.entries())
-    if (i2 === null) {
-      for (const t2 of S)
-        if ($(n2, t2, r2)) {
-          l2 = s2 + 1, i2 = t2;
-          break;
-        }
-    } else if ($(n2, i2, r2, true))
-      return { lineStart: l2, lineEnd: s2 };
-  return null;
-}, w = (e2, { cwd: r2, includedFiles: i2, resolvedPath: l2 }) => {
-  const { filePath: s2 } = e2;
-  let n2 = s2;
-  if (!upath.isAbsolute(s2)) {
-    if (!r2)
-      return console.error(`[@mdit/plugin-include]: Error when resolving path: ${s2}`), `
-Error when resolving path
-`;
-    n2 = upath.resolve(r2, s2);
-  }
-  if (i2.push(n2), !empty_1.existsSync(n2))
-    return console.error(`[@mdit/plugin-include]: ${n2} not found`), `
-File not found
-`;
-  const t2 = empty_1.readFileSync(n2).toString().replace(b, `
-`).split(`
-`);
-  let u2 = [];
-  if ("region" in e2) {
-    const d2 = y(t2, e2.region);
-    d2 && (u2 = t2.slice(d2.lineStart, d2.lineEnd));
-  } else {
-    const { lineStart: d2, lineEnd: o2 } = e2;
-    if (d2)
-      u2 = t2.slice(d2 - 1, o2);
-    else if (t2[0] === "---") {
-      const c2 = t2.findIndex((f2, a2) => a2 !== 0 && f2 === "---");
-      u2 = t2.slice(Math.max(c2 + 1, 1), o2);
-    } else
-      u2 = t2.slice(0, o2);
-  }
-  if (l2 && n2.endsWith(".md")) {
-    const d2 = upath.dirname(n2);
-    u2.unshift(`<!-- #include-env-start: ${d2} -->`), u2.push("<!-- #include-env-end -->");
-  }
-  return E(u2.join(`
-`).replace(/\n?$/, `
-`));
-}, P = (e2, r2, { cwd: i2, includedFiles: l2 }) => e2.replace(r2.useComment ? I : x, (s2, n2, t2, u2, d2, o2) => {
-  const c2 = r2.resolvePath(t2, i2), f2 = r2.resolveImagePath || r2.resolveLinkPath, a2 = w({ filePath: c2, ...u2 ? { region: u2 } : { ...d2 ? { lineStart: Number(d2) } : {}, ...o2 ? { lineEnd: Number(o2) } : {} } }, { cwd: i2, includedFiles: l2, resolvedPath: f2 });
-  return (r2.deep && c2.endsWith(".md") ? P(a2, r2, { cwd: upath.isAbsolute(c2) ? upath.dirname(c2) : i2 ? upath.resolve(i2, upath.dirname(c2)) : null, includedFiles: l2 }) : a2).split(`
-`).map((m) => n2 + m).join(`
-`);
-}), F = /^<!-- #include-env-start: ([^)]*?) -->$/, A = (e2, r2, i2, l2) => {
-  const s2 = e2.bMarks[r2] + e2.tShift[r2], n2 = e2.eMarks[r2], t2 = e2.src.slice(s2, n2);
-  if (t2.startsWith("<!-- #include-env-start: ")) {
-    const u2 = F.exec(t2);
-    if (u2) {
-      if (l2)
-        return true;
-      const [, d2] = u2;
-      e2.line = r2 + 1;
-      const o2 = e2.push("include_start", "", 0);
-      return o2.map = [r2, e2.line], o2.info = d2, o2.markup = "include_start", true;
-    }
-  }
-  return false;
-}, M = (e2, r2, i2, l2) => {
-  const s2 = e2.bMarks[r2] + e2.tShift[r2], n2 = e2.eMarks[r2];
-  if (e2.src.slice(s2, n2) === "<!-- #include-env-end -->") {
-    if (l2)
-      return true;
-    e2.line = r2 + 1;
-    const t2 = e2.push("include_end", "", 0);
-    return t2.map = [r2, e2.line], t2.markup = "include_end", true;
-  }
-  return false;
-}, _ = (e2, r2, i2, l2) => {
-  var _a;
-  const s2 = r2.attrIndex(e2), n2 = (_a = r2.attrs) == null ? void 0 : _a[s2][1];
-  if ((n2 == null ? void 0 : n2[0]) === "." && Array.isArray(l2)) {
-    const { length: t2 } = l2;
-    if (t2) {
-      const u2 = upath.relative(upath.dirname(i2), l2[t2 - 1]), d2 = upath.join(u2, n2);
-      r2.attrs[s2][1] = (d2 == null ? void 0 : d2[0]) === "." ? d2 : `./${d2}`;
-    }
-  }
-}, R = (e2, r2) => {
-  var _a;
-  const { currentPath: i2, resolvePath: l2 = (o2) => o2, deep: s2 = false, resolveLinkPath: n2 = true, resolveImagePath: t2 = true, useComment: u2 = true } = r2 != null ? r2 : {};
-  if (typeof i2 != "function")
-    return console.error('[@mdit/plugin-include]: "currentPath" is required');
-  const d2 = (o2) => {
-    var _a2;
-    const c2 = o2.env, f2 = (_a2 = c2.includedFiles) != null ? _a2 : c2.includedFiles = [], a2 = i2(c2);
-    o2.src = P(o2.src, { currentPath: i2, resolvePath: l2, deep: s2, resolveLinkPath: n2, resolveImagePath: t2, useComment: u2 }, { cwd: a2 ? upath.dirname(a2) : null, includedFiles: f2 });
-  };
-  if (e2.core.ruler.after("normalize", "md_import", d2), t2 || n2) {
-    if (e2.block.ruler.before("table", "md_include_start", A, { alt: ["paragraph", "reference", "blockquote", "list"] }), e2.block.ruler.before("table", "md_include_end", M, { alt: ["paragraph", "reference", "blockquote", "list"] }), e2.renderer.rules.include_start = (o2, c2, f2, a2) => {
-      var _a2;
-      const m = o2[c2];
-      return ((_a2 = a2.includedPaths) != null ? _a2 : a2.includedPaths = []).push(m.info), "";
-    }, e2.renderer.rules.include_end = (o2, c2, f2, a2) => {
-      const m = a2.includedPaths;
-      return Array.isArray(m) ? m.pop() : console.error("[@mdit/plugin-include]: include_end failed, no include_start."), "";
-    }, t2) {
-      const o2 = e2.renderer.rules.image;
-      e2.renderer.rules.image = (c2, f2, a2, m, p2) => {
-        const v = c2[f2], g = i2(m);
-        return g && _("src", v, g, m.includedPaths), o2(c2, f2, a2, m, p2);
-      };
-    }
-    if (n2) {
-      const o2 = (_a = e2.renderer.rules.link_open) != null ? _a : (c2, f2, a2, m, p2) => p2.renderToken(c2, f2, a2);
-      e2.renderer.rules.link_open = (c2, f2, a2, m, p2) => {
-        const v = c2[f2], g = i2(m);
-        return g && _("href", v, g, m.includedPaths), o2(c2, f2, a2, m, p2);
-      };
-    }
-  }
-};
 /**
  * make all img 'src' attribute absolute.
  * @module imgSrcAbs
@@ -9922,6 +9785,36 @@ function imgSrcAbs(md) {
       srcValue = srcValue.replace("./", env.filePath);
       token2.attrSet("src", srcValue);
     }
+    return defaultRender(tokens, idx, options2, env, self2);
+  };
+}
+/**
+ * embed code from relative file paths
+ * example:
+ * ```md
+ * ```c++:./relative/file/to/your/code.cpp
+ *  // this code here is overwritten..
+ *  // this way you can embed a info here for renderer that do not understand the embedding..
+ *  //something like:
+ *
+ *  // please look at ./relative/file/to/your/code.cpp
+ * ```
+ * @module embedCode
+ * @param {MarkdownIt} md - MarkdownIt instance
+ * @returns {undefined} - Side effects only
+ * @author Stefan Krüger s-light.eu
+ * @version 1.0.0
+ * @license MIT
+ * @exports embedCode
+ */
+function embedCode(md) {
+  const defaultRender = md.renderer.rules.code || function(tokens, idx, options2, env, self2) {
+    return self2.renderToken(tokens, idx, options2);
+  };
+  md.renderer.rules.code = function(tokens, idx, options2, env, self2) {
+    const token2 = tokens[idx];
+    console.log(`env: `, env);
+    console.log(`token: `, token2);
     return defaultRender(tokens, idx, options2, env, self2);
   };
 }
@@ -9983,7 +9876,7 @@ const scopeToCSSClass = (name, { prefix }) => {
     const pieces = name.split(".");
     return [
       `${prefix}${pieces.shift()}`,
-      ...pieces.map((x2, i2) => `${x2}${"_".repeat(i2 + 1)}`)
+      ...pieces.map((x, i2) => `${x}${"_".repeat(i2 + 1)}`)
     ].join(" ");
   }
   return `${prefix}${name}`;
@@ -10131,7 +10024,7 @@ function optional(re2) {
   return concat$2("(?:", re2, ")?");
 }
 function concat$2(...args) {
-  const joined = args.map((x2) => source$2(x2)).join("");
+  const joined = args.map((x) => source$2(x)).join("");
   return joined;
 }
 function stripOptionsFromArgs$2(args) {
@@ -10145,7 +10038,7 @@ function stripOptionsFromArgs$2(args) {
 }
 function either$2(...args) {
   const opts = stripOptionsFromArgs$2(args);
-  const joined = "(" + (opts.capture ? "" : "?:") + args.map((x2) => source$2(x2)).join("|") + ")";
+  const joined = "(" + (opts.capture ? "" : "?:") + args.map((x) => source$2(x)).join("|") + ")";
   return joined;
 }
 function countMatchGroups(re2) {
@@ -10457,7 +10350,7 @@ function compileKeywords(rawKeywords, caseInsensitive, scopeName = DEFAULT_KEYWO
   return compiledKeywords;
   function compileList2(scopeName2, keywordList) {
     if (caseInsensitive) {
-      keywordList = keywordList.map((x2) => x2.toLowerCase());
+      keywordList = keywordList.map((x) => x.toLowerCase());
     }
     keywordList.forEach(function(keyword) {
       const pair = keyword.split("|");
@@ -20919,10 +20812,10 @@ function elixir(hljs2) {
   const LOWERCASE_SIGIL = {
     className: "string",
     begin: "~[a-z](?=" + SIGIL_DELIMITERS + ")",
-    contains: SIGIL_DELIMITER_MODES.map((x2) => hljs2.inherit(
-      x2,
+    contains: SIGIL_DELIMITER_MODES.map((x) => hljs2.inherit(
+      x,
       { contains: [
-        escapeSigilEnd(x2.end),
+        escapeSigilEnd(x.end),
         BACKSLASH_ESCAPE2,
         SUBST
       ] }
@@ -20931,9 +20824,9 @@ function elixir(hljs2) {
   const UPCASE_SIGIL = {
     className: "string",
     begin: "~[A-Z](?=" + SIGIL_DELIMITERS + ")",
-    contains: SIGIL_DELIMITER_MODES.map((x2) => hljs2.inherit(
-      x2,
-      { contains: [escapeSigilEnd(x2.end)] }
+    contains: SIGIL_DELIMITER_MODES.map((x) => hljs2.inherit(
+      x,
+      { contains: [escapeSigilEnd(x.end)] }
     ))
   };
   const REGEX_SIGIL = {
@@ -20941,12 +20834,12 @@ function elixir(hljs2) {
     variants: [
       {
         begin: "~r(?=" + SIGIL_DELIMITERS + ")",
-        contains: SIGIL_DELIMITER_MODES.map((x2) => hljs2.inherit(
-          x2,
+        contains: SIGIL_DELIMITER_MODES.map((x) => hljs2.inherit(
+          x,
           {
-            end: regex2.concat(x2.end, /[uismxfU]{0,7}/),
+            end: regex2.concat(x.end, /[uismxfU]{0,7}/),
             contains: [
-              escapeSigilEnd(x2.end),
+              escapeSigilEnd(x.end),
               BACKSLASH_ESCAPE2,
               SUBST
             ]
@@ -20956,11 +20849,11 @@ function elixir(hljs2) {
       {
         begin: "~R(?=" + SIGIL_DELIMITERS + ")",
         contains: SIGIL_DELIMITER_MODES.map(
-          (x2) => hljs2.inherit(
-            x2,
+          (x) => hljs2.inherit(
+            x,
             {
-              end: regex2.concat(x2.end, /[uismxfU]{0,7}/),
-              contains: [escapeSigilEnd(x2.end)]
+              end: regex2.concat(x.end, /[uismxfU]{0,7}/),
+              contains: [escapeSigilEnd(x.end)]
             }
           )
         )
@@ -21814,7 +21707,7 @@ function erlang(hljs2) {
         returnBegin: true,
         keywords: {
           $pattern: "-" + hljs2.IDENT_RE,
-          keyword: DIRECTIVES.map((x2) => `${x2}|1.5`).join(" ")
+          keyword: DIRECTIVES.map((x) => `${x}|1.5`).join(" ")
         },
         contains: [PARAMS]
       },
@@ -23030,7 +22923,7 @@ function lookahead$1(re2) {
   return concat$1("(?=", re2, ")");
 }
 function concat$1(...args) {
-  const joined = args.map((x2) => source$1(x2)).join("");
+  const joined = args.map((x) => source$1(x)).join("");
   return joined;
 }
 function stripOptionsFromArgs$1(args) {
@@ -23044,7 +22937,7 @@ function stripOptionsFromArgs$1(args) {
 }
 function either$1(...args) {
   const opts = stripOptionsFromArgs$1(args);
-  const joined = "(" + (opts.capture ? "" : "?:") + args.map((x2) => source$1(x2)).join("|") + ")";
+  const joined = "(" + (opts.capture ? "" : "?:") + args.map((x) => source$1(x)).join("|") + ")";
   return joined;
 }
 function fsharp(hljs2) {
@@ -29083,7 +28976,7 @@ var NUMERIC$1 = {
 function recurRegex(re2, substitution, depth) {
   if (depth === -1)
     return "";
-  return re2.replace(substitution, (_2) => {
+  return re2.replace(substitution, (_) => {
     return recurRegex(re2, substitution, depth - 1);
   });
 }
@@ -29732,7 +29625,7 @@ function javascript$1(hljs2) {
         ...BUILT_IN_GLOBALS$2,
         "super",
         "import"
-      ].map((x2) => `${x2}\\s*\\(`)),
+      ].map((x) => `${x}\\s*\\(`)),
       IDENT_RE$1$1,
       regex2.lookahead(/\s*\(/)
     ),
@@ -51778,7 +51671,7 @@ function sql(hljs2) {
     illegal: /[{}]|<\//,
     keywords: {
       $pattern: /\b[\w\.]+/,
-      keyword: reduceRelevancy(KEYWORDS2, { when: (x2) => x2.length < 3 }),
+      keyword: reduceRelevancy(KEYWORDS2, { when: (x) => x.length < 3 }),
       literal: LITERALS2,
       type: TYPES2,
       built_in: POSSIBLE_WITHOUT_PARENS
@@ -53265,7 +53158,7 @@ function lookahead(re2) {
   return concat("(?=", re2, ")");
 }
 function concat(...args) {
-  const joined = args.map((x2) => source(x2)).join("");
+  const joined = args.map((x) => source(x)).join("");
   return joined;
 }
 function stripOptionsFromArgs(args) {
@@ -53279,7 +53172,7 @@ function stripOptionsFromArgs(args) {
 }
 function either(...args) {
   const opts = stripOptionsFromArgs(args);
-  const joined = "(" + (opts.capture ? "" : "?:") + args.map((x2) => source(x2)).join("|") + ")";
+  const joined = "(" + (opts.capture ? "" : "?:") + args.map((x) => source(x)).join("|") + ")";
   return joined;
 }
 const keywordWrapper = (keyword) => concat(
@@ -55350,7 +55243,7 @@ function javascript(hljs2) {
         ...BUILT_IN_GLOBALS,
         "super",
         "import"
-      ].map((x2) => `${x2}\\s*\\(`)),
+      ].map((x) => `${x}\\s*\\(`)),
       IDENT_RE$12,
       regex2.lookahead(/\s*\(/)
     ),
@@ -58067,6 +57960,7 @@ hljs.default = hljs;
 var lib = hljs;
 var HighlightJS = lib;
 var nightOwl = "";
+var MyMarkdown_vue_vue_type_style_index_0_lang = "";
 const _hoisted_1$1 = ["innerHTML"];
 const _sfc_main$1 = {
   __name: "MyMarkdown",
@@ -58092,9 +57986,7 @@ const _sfc_main$1 = {
       eval: false
     };
     const md = shallowRef(new markdownIt(md_options));
-    md.value.use(R, {
-      currentPath: (env) => env.filePath
-    });
+    md.value.use(embedCode);
     md.value.use(imgSrcAbs);
     const contentHTML = computed(() => {
       return md.value.render(props.source, {
@@ -58103,7 +57995,7 @@ const _sfc_main$1 = {
     });
     return (_ctx, _cache) => {
       return openBlock(), createElementBlock("div", {
-        class: "md",
+        class: "my-markdown",
         innerHTML: contentHTML.value
       }, null, 8, _hoisted_1$1);
     };
@@ -59297,7 +59189,7 @@ var esprima;
 try {
   var _require = commonjsRequire;
   esprima = _require("esprima");
-} catch (_2) {
+} catch (_) {
   if (typeof window !== "undefined")
     esprima = window.esprima;
 }
@@ -61479,18 +61371,18 @@ ieee754.write = function(buffer2, value, offset, isLE, mLen, nBytes) {
     }
     if (a2 === b2)
       return 0;
-    let x2 = a2.length;
-    let y2 = b2.length;
-    for (let i2 = 0, len2 = Math.min(x2, y2); i2 < len2; ++i2) {
+    let x = a2.length;
+    let y = b2.length;
+    for (let i2 = 0, len2 = Math.min(x, y); i2 < len2; ++i2) {
       if (a2[i2] !== b2[i2]) {
-        x2 = a2[i2];
-        y2 = b2[i2];
+        x = a2[i2];
+        y = b2[i2];
         break;
       }
     }
-    if (x2 < y2)
+    if (x < y)
       return -1;
-    if (y2 < x2)
+    if (y < x)
       return 1;
     return 0;
   };
@@ -61750,21 +61642,21 @@ ieee754.write = function(buffer2, value, offset, isLE, mLen, nBytes) {
     thisEnd >>>= 0;
     if (this === target2)
       return 0;
-    let x2 = thisEnd - thisStart;
-    let y2 = end - start;
-    const len2 = Math.min(x2, y2);
+    let x = thisEnd - thisStart;
+    let y = end - start;
+    const len2 = Math.min(x, y);
     const thisCopy = this.slice(thisStart, thisEnd);
     const targetCopy = target2.slice(start, end);
     for (let i2 = 0; i2 < len2; ++i2) {
       if (thisCopy[i2] !== targetCopy[i2]) {
-        x2 = thisCopy[i2];
-        y2 = targetCopy[i2];
+        x = thisCopy[i2];
+        y = targetCopy[i2];
         break;
       }
     }
-    if (x2 < y2)
+    if (x < y)
       return -1;
-    if (y2 < x2)
+    if (y < x)
       return 1;
     return 0;
   };
@@ -62685,7 +62577,7 @@ ieee754.write = function(buffer2, value, offset, isLE, mLen, nBytes) {
     return this;
   };
   const errors = {};
-  function E2(sym, getMessage, Base) {
+  function E(sym, getMessage, Base) {
     errors[sym] = class NodeError extends Base {
       constructor() {
         super();
@@ -62714,7 +62606,7 @@ ieee754.write = function(buffer2, value, offset, isLE, mLen, nBytes) {
       }
     };
   }
-  E2(
+  E(
     "ERR_BUFFER_OUT_OF_BOUNDS",
     function(name) {
       if (name) {
@@ -62724,14 +62616,14 @@ ieee754.write = function(buffer2, value, offset, isLE, mLen, nBytes) {
     },
     RangeError
   );
-  E2(
+  E(
     "ERR_INVALID_ARG_TYPE",
     function(name, actual) {
       return `The "${name}" argument must be of type number. Received type ${typeof actual}`;
     },
     TypeError
   );
-  E2(
+  E(
     "ERR_OUT_OF_RANGE",
     function(str2, range2, input) {
       let msg = `The value of "${str2}" is out of range.`;
@@ -63258,41 +63150,70 @@ matter.clearCache = function() {
   matter.cache = {};
 };
 var grayMatter = matter;
-const mksContent = () => {
+const mksGetFunktionen = (mksContent2) => {
+  console.group("mksGetFunktionen");
+  if (mksContent2["funktionen"] == void 0) {
+    mksContent2["funktionen"] = {};
+  }
+  const mksFn = mksContent2["funktionen"];
+  const funktionen_dir = { "./funktionen/Entfernung/readme.md": '---\ntitel: MYS Material\ntags: "entfernung"\n---\n\n# Entfernung\n\n![Ma\xDFband](./Yellow%20Tape%20Measure.svg)\n\n## Funktionen\n\nSensoren die Entfernungen Messen k\xF6nnen.\nhier ist unter anderem Wichtig in welchem Bereich der jeweilige Sensor messen kann.\nes kann z.B. sein das der minimale Abstand durch aus 5cm betr\xE4gt.\nauch sind die Genauigkeit sehr unterschiedlich - von wenigen Millimetern Abweichungen bis zu mehreren Centimeter.\n\n## Anschl\xFCsse\n\n### Eingang\n\nje nach Bauteil\n\n### Ausgang\n\n-   je nach Bauteil\n\n## Kurz-Datenblatt\n\nsiehe einzelnes bauteile.\n\nRelevante Gr\xF6\xDFen:\n\n-   Messbereich\n-   Genauigkeit\n\n## Siehe Auch\n\n-   -\n\n## Bauteile\n\nTODO: ARCHITECTURE link sub-pages\n', "./funktionen/LEDs/readme.md": '---\ntags: "output, led, licht, Farbe"\n---\n\n# LEDs\n\n![LED](./led-lamp-green-on.svg)\n\n## Funktionen\n\nDer Motortreiber \xFCbersetzt die schwachen Signale & Spannungen des micro-controllers (Arduino / RaspberryPi) in Starke Spannungen & Str\xF6me um die verschiedenen [Motoren](./motor/) an zu steuern (zu _treiben_).\n\n## Anschl\xFCsse\n\n### Eingang\n\nje nach Bauteil\n\n-   I2C\n-   Digital IO\n\n### Ausgang\n\n-   High Power / High Voltage\n\n## Kurz-Datenblatt\n\nsiehe einzelnes bauteile.\n\n-   Signal Eingang: 3-5V\n-   Betriebsspannung: 5-12V\n-   Ausgang Strom Max: 2A\n\n## Siehe Auch\n\n-   x\n\n## Bauteile\n\n', "./funktionen/Motortreiber/readme.md": '---\ntags: "motor, motortreiber"\n---\n\n# Motortreiber\n\n![Motortreiber allgemein](https://makeyourschool.de/wp-content/uploads/2018/10/70_motortreiber-1024x1024.jpg)\n\nTODO: CONTENT change image to general\n\n## Funktionen\n\nDer Motortreiber \xFCbersetzt die schwachen Signale & Spannungen des micro-controllers (Arduino / RaspberryPi) in Starke Spannungen & Str\xF6me um die verschiedenen [Motoren](./motor/) an zu steuern (zu _treiben_).\n\n## Anschl\xFCsse\n\n### Eingang\n\nje nach Bauteil\n\n-   I2C\n-   Digital IO\n\n### Ausgang\n\n-   High Power / High Voltage\n\n## Kurz-Datenblatt\n\nsiehe einzelnes bauteile.\n\n-   Signal Eingang: 3-5V\n-   Betriebsspannung: 5-12V\n-   Ausgang Strom Max: 2A\n\n## Siehe Auch\n\n-   [Motoren](./motor/)\n\n## Bauteile\nTODO: ARCHITECTURE link sub-pages\n', "./funktionen/Schalter/readme.md": '---\ntags: "input"\n---\n\n# Taster & Schalter\n\n![Taster allgemein](https://makeyourschool.de/wp-content/uploads/2018/10/59_taster_knopf-1024x1024.jpg)\n<!-- TODO: CONTENT change image to general -->\n\n## Funktionen\n\nDer Taster / Schalter ist ein *Input*.\n\nDer Unterschied zwischen Taster und Schalter:\n- Taster: nur solange *an* wie er Bet\xE4tigt (z.B: gedr\xFCckt) wird\n- Schalter: Bet\xE4tigung/Aktion wechselt den Zustand zwischen an und aus\n\nwenn ein Taster/Schalter **an** ist sind die Kontakte verbunden.\nwenn er **aus** ist sind die kontakte unverbunden.\ndiesen unterschied kann ein uC *messen*.\n\nes gibt diese in sehr vielen verschiedenen Ausf\xFChrungen.\n\n\n## Anschl\xFCsse\n\n### Eingang\n\n- Mechanische Bet\xE4tigung\n\n### Ausgang\n\n-   Zwei *Pins* werden *verbunden\n\n## Kurz-Datenblatt\n\nsiehe bauteile\n\n## Siehe Auch\n\n-   *-*\n\n## Weiterf\xFChrende Hintergrundinformationen:\n\n    [Schalter (Elektrotechnik) \u2013 Wikipedia Artikel](https://de.wikipedia.org/wiki/Schalter_(Elektrotechnik))\n    [Positionsschalter \u2013 Wikipedia Artikel](https://de.wikipedia.org/wiki/Positionsschalter)\n    [GPIO \u2013 Wikipedia Artikel](https://de.wikipedia.org/wiki/Allzweckeingabe/-ausgabe)\n\n\n## Bauteile\n<!-- TODO: ARCHITECTURE link sub-pages  -->\n<!-- in `bauteile` folder -->\n' };
+  for (const path in funktionen_dir) {
+    const fn_name = path.replace("./funktionen/", "").replace("/readme.md", "");
+    if (mksFn[fn_name] == void 0) {
+      mksFn[fn_name] = {};
+    }
+    mksFn[fn_name].path_readme = path;
+    mksFn[fn_name].path_base = path.replace("./", "mks/").replace("/readme.md", "/");
+    mksFn[fn_name].readme = grayMatter(funktionen_dir[path], { eval: false });
+  }
+  console.groupEnd();
+};
+const mksGetFnBauteile = (mksContent2) => {
+  console.group("mksGetFnBauteile");
+  const mksFn = mksContent2["funktionen"];
+  const bauteile_dir = { "./funktionen/Entfernung/bauteile/mks-GroveUltraschall/readme.md": "# Grove Ultraschall Entfernungsmesser\n\n![Bauteil](https://makeyourschool.de/wp-content/uploads/2018/10/17_ultraschallentfernungssensor-1024x1024.jpg)\n<!-- TODO: CONTENT change image -->\n<!-- TODO: ARCHITECTURE multiple images? -->\n<!-- do we need multiple images per part?-->\n<!-- and if do we need a slider? -->\n\n## Beschreibung\n\nkurz-Beschreibung\n\n## Anschl\xFCsse\n\n### Eingang\n\n-   I2C\n\n### Ausgang\n\n-   High Power / High Voltage\n\n## Kurz-Datenblatt\n\n-   Signal Eingang: 3-5V\n-   Betriebsspannung: 5-12V\n-   Ausgang Strom Max: 2A\n\n## Siehe Auch\n\n-   falls vorhanden link zu anderem Bauteil / zugeh\xF6rigem part\n\n\n\n## library\num dieses Bauteil zu benutzen verwende / installiere bitte diese Library: LibraryName\n<!-- TODO: CONTENT change library name -->\n\n## Beispiel\n\nschau dir das Minimal-Beispiel an\n<!-- @include: ./examples/BauteilTemplate_minimal/BauteilTemplate_minimal.ino -->\n\n## Anleitung\n\n<!-- TODO: CONTENT change guide -->\n- nimm Bauteil\n- Schlie\xDFe an Port D2 an\n- nehm Beispiel Code\n    - kopiere von hier dr\xFCber\n    - oder direkt in der Arduino IDE:\n        `Datei-Beispiele-MakeYourSchool-FunktionsNamen-BauteilNamen-Minimal`\n- Sketch Hochladen\n- Das Sollte nun passieren:\n    - die LED Blinkt im 1 Sekunden Takt\n", "./funktionen/LEDs/bauteile/mks-LED-Streifen/readme.md": '# Pixel LED-Streifen\n\nmks Nr 65\n\nAndere Namen:\n- Neopixel\n- Dotstar\n- WS2811\n- APA102\n\n![LED-Streifen](https://makeyourschool.de/wp-content/uploads/2018/08/65_led-streifen-1024x1024.jpg)\n\n## Beschreibung\nLED-Streifen sind Flexible B\xE4nder auf denen in bestimmtem Abstand `Adresierbare LED\'s` aufgel\xF6tete sind.\njeder *Pixel* beinhaltet einen kleinen controller chip (meist schwarzen - dem LED-Treiber) und den meist drei eigentlichen LEDs in den Licht-Grundfarben Rot, Gr\xFCn und Blau.\nJeder *Pixel* kann einzeln *Adressiert* werden (Entspricht einem Haus in einer Stra\xDFe).\ndabei k\xF6nnen alle drei Grundfarben einzeln in ihrere Helligkeit (255 Stufen) eingestellt werden -\ndadurch k\xF6nnen alle Regenbogen Farben + Wei\xDF erzeugt werden.\n\n## Anschl\xFCsse\n\n### Eingang\n\n-   Serielle Daten\n\n### Ausgang\n\n-   Licht\n\n## Kurz-Datenblatt\n\n-   Signal Eingang: 3-5V\n-   Betriebsspannung: 3-5V\n-   ben\xF6tigter Strom: 20mA-60mA pro Pixel\n\nBeispiel:\n10 Pixel * 60mA = 600mA = 0,6A\n\n\n## Siehe Auch\n\n-   falls vorhanden link zu anderem Bauteil / zugeh\xF6rigem part\n\n## library\n\num dieses Bauteil zu benutzen verwende / installiere bitte diese Library: [fastled](https://fastled.io/)\n\n## Beispiel\n\nschau dir das Minimal-Beispiel an:\n\n<!-- @include ./examples/pixel_minimal/pixel_minimal.ino -->\n```c++:./examples/pixel_minimal/pixel_minimal.ino\n// Ping Pong!!\nconst char[] code = "this should be overwritten!";\n```\n\n## Anleitung\n\n<!-- TODO: CONTENT change guide -->\n\n-   nimm Bauteil\n-   Schlie\xDFe an Port D2 an\n-   nehm Beispiel Code\n    -   kopiere von hier dr\xFCber\n    -   oder direkt in der Arduino IDE:\n        `Datei-Beispiele-MakeYourSchool-FunktionsNamen-BauteilNamen-Minimal`\n-   Sketch Hochladen\n-   Das Sollte nun passieren:\n    -   die LED Blinkt im 1 Sekunden Takt\n', "./funktionen/Motortreiber/bauteile/mks-GroveMotortreiberI2C/readme.md": "# Grove motortreiber I2C\n\nmks Nr 70\n\n![Bauteil](https://makeyourschool.de/wp-content/uploads/2018/10/70_motortreiber-1024x1024.jpg)\n\n<!-- TODO: ARCHITECTURE multiple images? -->\n<!-- do we need multiple images per part?-->\n<!-- and if do we need a slider? -->\n\n## Beschreibung\n\nkurz-Beschreibung\n\n## Anschl\xFCsse\n\n### Eingang\n\n-   I2C\n\n### Ausgang\n\n-   High Power / High Voltage\n\n## Kurz-Datenblatt\n\n-   Signal Eingang: 3-5V\n-   Betriebsspannung: 5-12V\n-   Ausgang Strom Max: 1A\n\n## Siehe Auch\n\n-   falls vorhanden link zu anderem Bauteil / zugeh\xF6rigem part\n\n## library\n\num dieses Bauteil zu benutzen verwende / installiere bitte diese Library: LibraryName\n\n<!-- TODO: CONTENT change library name -->\n\n## Beispiel\n\nschau dir das Minimal-Beispiel an:\n\n<!-- TODO: ARCHITECTURE include example *_minimal.ino-->\n\n## Anleitung\n\n<!-- TODO: CONTENT change guide -->\n\n-   nimm Bauteil\n-   Schlie\xDFe an Port D2 an\n-   nehm Beispiel Code\n    -   kopiere von hier dr\xFCber\n    -   oder direkt in der Arduino IDE:\n        `Datei-Beispiele-MakeYourSchool-FunktionsNamen-BauteilNamen-Minimal`\n-   Sketch Hochladen\n-   Das Sollte nun passieren:\n    -   die LED Blinkt im 1 Sekunden Takt\n", "./funktionen/Schalter/bauteile/mks-Endschalter/readme.md": "# Endschalter\n\n![Bauteil](./bauteil.jpg)\n<!-- TODO: CONTENT change image -->\n<!-- TODO: ARCHITECTURE multiple images? -->\n<!-- do we need multiple images per part?-->\n<!-- and if do we need a slider? -->\n\n## Beschreibung\n\nDer Endschalter funktioniert wie ein normaler Schalter und kann als Eingabe f\xFCr einen Mikrocontroller verwendet werden. \nDer Schalter besitzt einen elastischen Schaltarm, der einen elektrischen Kontakt zwischen den Anschlusspins herstellt, wenn der Arm gedr\xFCckt wird.\n\nDer Endschalter kommt vor allem bei Robotern oder anderen bewegten Maschinen zum Einsatz, um Kollisionen zu erkennen und zu vermeiden. \nSo kann dieser zum Beispiel an einem Roboter angebaut werden - wenn der Roboter dann gegen ein Hindernis f\xE4hrt, \nwird der Endschalter bet\xE4tigt bevor der Roboter das Hindernis wirklich ber\xFChrt.\nSo wird die bevorstehende Kollision erkannt und kann vermieden werden. (z.B. f\xE4hrt der Roboter dann R\xFCckw\xE4rts vom Hindernis weg.)\n\n## Anschl\xFCsse\n\n### Eingang\n\n-   Mechanische Bet\xE4tigung\n\n### Ausgang\n\n-   3 Kontakte (NC-C-NO)\n    - C = Common (gemeinsamer Anschluss)\n    - NC = Normal Closed (im unged\xFCrckten zustand mit C verbunden)\n    - NO = Normal Open (im ged\xFCrckten zustand mit C verbunden)\n\n## Kurz-Datenblatt\n\n-   Schaltleistung: 5A 125VAC\n\n[Hersteller Datenblatt](https://asset.conrad.com/media10/add/160267/c1/-/de/000707243DS01/datenblatt-707243-hartmann-mikroschalter-mbb1-01-a-01-c-09-a-250-vac-5-a-1-x-einein-tastend-1-st.pdf)\n\n## Siehe Auch\n\n-   -\n\n\n\n## library\nkeine library n\xF6tig.\n\n## Beispiel\n\nschau dir das Minimal-Beispiel an:\n<!-- TODO: ARCHITECTURE include example *_minimal.ino-->\n\n## Anleitung\n\n- schlie\xDFe den Endschalter wie folgt an:\n    - C an GND\n    - NO an D2\n- nehm Beispiel Code \n    - kopiere von hier dr\xFCber in neuen leeren arduino sketch\n    - oder direkt \xFCber das Men\xFC der Arduino IDE *1: \n        `Datei-Beispiele-MakeYourSchool-Taster-Endschalter-Endschalter_Minimal`\n- Sketch Hochladen\n- Das Sollte nun passieren:\n    - \xD6ffne den Serial-Monitor (Symbol ganz rechts oben in der IDE)\n    - Wenn du nun den Endschalter dr\xFCckst sollte `Endschalter wurde gerade gedr\xFCckt!` angezeigt werden.\n    - Wenn du ihn wieder los l\xE4sst sollte `Endschalter wurde wieder ge\xF6ffnet` angezeigt werden.\n\n*1: daf\xFCr musst du einmalig die `MakeYourSchool` library installiert haben.\ndiese bringt alle hier im system vorhandenen Beispielcodes in die IDE..\n", "./funktionen/Schalter/bauteile/mks-GroveTaster/readme.md": "# Taster (Grove)\n\n![Bauteil](https://makeyourschool.de/wp-content/uploads/2018/10/60_taster_knopf_platine-1024x1024.jpg)\n<!-- TODO: CONTENT change image -->\n<!-- TODO: ARCHITECTURE multiple images? -->\n<!-- do we need multiple images per part?-->\n<!-- and if do we need a slider? -->\n\n## Beschreibung\n\nein einfacher Taster.\nauf einer Platine mit einem Grove-Buchse verl\xF6tete.\ndadurch ist der Anschluss super einfach :-)\n\n## Anschl\xFCsse\n\n### Eingang\n\n-   Mechanische Bet\xE4tigung\n\n### Ausgang\n\n-   5V Signal (auf Grove Buchse)\n\n## Kurz-Datenblatt\n\n-   Betriebsspannung: 3.3-5V\n\n## Siehe Auch\n\n-   -\n\n\n\n## library\nkeine library n\xF6tig.\n\n## Beispiel\n\nschau dir das Minimal-Beispiel an:\n<!-- TODO: ARCHITECTURE include example *_minimal.ino-->\n\n## Anleitung\n\n<!-- TODO: CONTENT change guide -->\n- nimm Bauteil\n- Schlie\xDFe an Port D2 an\n- nehm Beispiel Code \n    - kopiere von hier dr\xFCber\n    - oder direkt in der Arduino IDE: \n        `Datei-Beispiele-MakeYourSchool-FunktionsNamen-BauteilNamen-Minimal`\n- Sketch Hochladen\n- Das Sollte nun passieren:\n    - die LED Blinkt im 1 Sekunden Takt\n", "./funktionen/Schalter/bauteile/mks-Taster/readme.md": "# Taster\n\n![Bauteil](https://makeyourschool.de/wp-content/uploads/2018/10/59_taster_knopf-1024x1024.jpg)\n<!-- TODO: CONTENT change image -->\n<!-- TODO: ARCHITECTURE multiple images? -->\n<!-- do we need multiple images per part?-->\n<!-- and if do we need a slider? -->\n\n## Beschreibung\n\nein einfacher Taster\n\n## Anschl\xFCsse\n\n### Eingang\n\n-   Mechanische Bet\xE4tigung\n\n### Ausgang\n\n-   ...\n\n## Kurz-Datenblatt\n\n-   Betriebsspannung: 3.3-5V\n\n## Siehe Auch\n\n-   https://makeyourschool.de/maker-ecke/material/taster-knopf/\n\n\n\n## library\nkeine library n\xF6tig\n<!-- TODO: CONTENT change library name -->\n\n## Beispiel\n\nschau dir das Minimal-Beispiel an:\n<!-- TODO: ARCHITECTURE include example *_minimal.ino-->\n\n## Anleitung\n\n<!-- TODO: CONTENT change guide -->\n- nimm Bauteil\n- Schlie\xDFe an Port D2 an\n- nehm Beispiel Code \n    - kopiere von hier dr\xFCber\n    - oder direkt in der Arduino IDE: \n        `Datei-Beispiele-MakeYourSchool-FunktionsNamen-BauteilNamen-Minimal`\n- Sketch Hochladen\n- Das Sollte nun passieren:\n    - die LED Blinkt im 1 Sekunden Takt\n" };
+  const path_regex = /\.\/funktionen\/(?<fn_name>.*)\/bauteile\/(?<part_name>.*)\/readme\.md/;
+  for (const path in bauteile_dir) {
+    const { fn_name, part_name } = path_regex.exec(path).groups;
+    if (mksFn[fn_name] == void 0) {
+      mksFn[fn_name] = {};
+    }
+    if (mksFn[fn_name].bauteile == void 0) {
+      mksFn[fn_name].bauteile = {};
+    }
+    const bauteile = mksFn[fn_name].bauteile;
+    bauteile[part_name] = {};
+    bauteile[part_name]["path_readme"] = path;
+    bauteile[part_name]["path_base"] = path.replace("./", "mks/").replace("/readme.md", "/");
+    bauteile[part_name].readme = grayMatter(bauteile_dir[path], { eval: false });
+    console.log(`${fn_name} - ${part_name}`, bauteile[part_name]);
+  }
+  console.groupEnd();
+};
+const mksGetContent = () => {
   console.group("mksContent");
   let mksContent2 = {
     welcome: {},
     funktionen: {}
   };
-  mksContent2["welcome"] = { "./readme.md": '---\ntitel: MYS Material\ntags: "welcome"\n---\n\n# MYS Material\n\nhier findet ihr eine Liste aller MYS Materialien:\n\ntest for code-highlight\n```c++\nunsigned long nextEvent = 0;\nconst unsigned long duration= 1000;\n\nvoid setup() {\n}\n\nvoid loop() {\n    if (millis() > nextEvent) {\n        nextEvent = millis() + duration;\n        // do someting every second.\n    }\n}\n\n```\n\n<!-- TODO: ARCHITECTURE search & filter mask -->\n\n<!-- TODO: ARCHITECTURE list all subfolder readmes in `./funktionen` -->\n\nund ein ende..\n' };
-  mksContent2["welcome"]["./readme.md"] = grayMatter(mksContent2["welcome"]["./readme.md"]);
+  let temp = { "./readme.md": '---\ntitel: MYS Material\ntags: "welcome"\n---\n\n# MYS Material\n\nhier findet ihr eine Liste aller MYS Materialien:\n\n[ping](https://s-light.eu)\n:tada: :100:\n\ntest for code-highlight\n```c++\nunsigned long nextEvent = 0;\nconst unsigned long duration= 1000;\n\nvoid setup() {\n}\n```\n\n# Funktionen\n' };
+  mksContent2["welcome"].readme = grayMatter(temp["./readme.md"]);
   mksContent2["welcome"]["path_base"] = "mks/";
-  const funktionen_dir = { "./funktionen/Entfernung/readme.md": '---\ntitel: MYS Material\ntags: "entfernung"\n---\n\n# Entfernung\n\n![Ma\xDFband](./Yellow%20Tape%20Measure.svg)\n\n## Funktionen\n\nSensoren die Entfernungen Messen k\xF6nnen.\nhier ist unter anderem Wichtig in welchem Bereich der jeweilige Sensor messen kann.\nes kann z.B. sein das der minimale Abstand durch aus 5cm betr\xE4gt.\nauch sind die Genauigkeit sehr unterschiedlich - von wenigen Millimetern Abweichungen bis zu mehreren Centimeter.\n\n## Anschl\xFCsse\n\n### Eingang\n\nje nach Bauteil\n\n### Ausgang\n\n-   je nach Bauteil\n\n## Kurz-Datenblatt\n\nsiehe einzelnes bauteile.\n\nRelevante Gr\xF6\xDFen:\n\n-   Messbereich\n-   Genauigkeit\n\n## Siehe Auch\n\n-   -\n\n## Bauteile\n\nTODO: ARCHITECTURE link sub-pages\n', "./funktionen/Motortreiber/readme.md": '---\ntags: "motor, motortreiber"\n---\n\n# Motortreiber\n\n![Motortreiber allgemein](https://makeyourschool.de/wp-content/uploads/2018/10/70_motortreiber-1024x1024.jpg)\nTODO: CONTENT change image to general\n\n## Funktionen\n\nDer Motortreiber \xFCbersetzt die schwachen Signale & Spannungen des micro-controllers (Arduino / RaspberryPi) in Starke Spannungen & Str\xF6me um die verschiedenen [Motoren](./motor/) an zu steuern (zu _treiben_).\n\n## Anschl\xFCsse\n\n### Eingang\n\nje nach Bauteil\n\n-   I2C\n-   Digital IO\n\n### Ausgang\n\n-   High Power / High Voltage\n\n## Kurz-Datenblatt\n\nsiehe einzelnes bauteile.\n\n-   Signal Eingang: 3-5V\n-   Betriebsspannung: 5-12V\n-   Ausgang Strom Max: 2A\n\n## Siehe Auch\n\n-   [Motoren](./motor/)\n\n## Bauteile\nTODO: ARCHITECTURE link sub-pages', "./funktionen/Schalter/readme.md": '---\ntags: "input"\n---\n\n# Taster & Schalter\n\n![Taster allgemein](https://makeyourschool.de/wp-content/uploads/2018/10/59_taster_knopf-1024x1024.jpg)\n<!-- TODO: CONTENT change image to general -->\n\n## Funktionen\n\nDer Taster / Schalter ist ein *Input*.\n\nDer Unterschied zwischen Taster und Schalter:\n- Taster: nur solange *an* wie er Bet\xE4tigt (z.B: gedr\xFCckt) wird\n- Schalter: Bet\xE4tigung/Aktion wechselt den Zustand zwischen an und aus\n\nwenn ein Taster/Schalter **an** ist sind die Kontakte verbunden.\nwenn er **aus** ist sind die kontakte unverbunden.\ndiesen unterschied kann ein uC *messen*.\n\nes gibt diese in sehr vielen verschiedenen Ausf\xFChrungen.\n\n\n## Anschl\xFCsse\n\n### Eingang\n\n- Mechanische Bet\xE4tigung\n\n### Ausgang\n\n-   Zwei *Pins* werden *verbunden\n\n## Kurz-Datenblatt\n\nsiehe bauteile\n\n## Siehe Auch\n\n-   *-*\n\n## Weiterf\xFChrende Hintergrundinformationen:\n\n    [Schalter (Elektrotechnik) \u2013 Wikipedia Artikel](https://de.wikipedia.org/wiki/Schalter_(Elektrotechnik))\n    [Positionsschalter \u2013 Wikipedia Artikel](https://de.wikipedia.org/wiki/Positionsschalter)\n    [GPIO \u2013 Wikipedia Artikel](https://de.wikipedia.org/wiki/Allzweckeingabe/-ausgabe)\n\n\n## Bauteile\n<!-- TODO: ARCHITECTURE link sub-pages  -->\n<!-- in `bauteile` folder -->\n' };
-  for (const path in funktionen_dir) {
-    console.log(path);
-    const funktionen_name = path.replace("./funktionen/", "").replace("/readme.md", "");
-    const mksFn = mksContent2["funktionen"];
-    mksFn[funktionen_name] = { bauteile: {} };
-    mksFn[funktionen_name]["path_readme"] = path;
-    mksFn[funktionen_name]["path_base"] = path.replace("./", "mks/").replace("/readme.md", "/");
-    mksFn[funktionen_name]["./readme.md"] = grayMatter(funktionen_dir[path]);
-    console.log(`${funktionen_name}`, mksFn[funktionen_name]);
-  }
+  mksGetFunktionen(mksContent2);
+  mksGetFnBauteile(mksContent2);
   console.groupEnd();
   return mksContent2;
 };
-var mksContent$1 = mksContent();
+var mksContent = mksGetContent();
 var IndexPage_vue_vue_type_style_index_0_scoped_true_lang = "";
 var IndexPage_vue_vue_type_style_index_1_lang = "";
-const _hoisted_1 = { class: "card-wrapper q-pa-md row items-start q-gutter-md" };
+const _hoisted_1 = { class: "card-wrapper q-ma-md q-pa-md row items-start q-gutter-md" };
 const _sfc_main = {
   __name: "IndexPage",
   setup(__props) {
-    console.log("mksContent", mksContent$1);
-    const mks_welcome = ref(mksContent$1["welcome"]);
-    console.log(`mksContent.welcome`, mksContent$1.welcome);
-    const mks_funktionen = ref(mksContent$1["funktionen"]);
-    console.log("mks_funktionen", mks_funktionen.value);
+    console.log("mksContent", mksContent);
+    const mks_welcome = ref(mksContent["welcome"]);
+    const mks_funktionen = ref(mksContent["funktionen"]);
     const $q = useQuasar();
     $q.dark.set(true);
     return (_ctx, _cache) => {
@@ -63301,20 +63222,34 @@ const _sfc_main = {
           createBaseVNode("section", null, [
             _cache[0] || (_cache[0] = createBaseVNode("div", null, "Markdown document loaded and rendered here:", -1)),
             createVNode(_sfc_main$1, {
-              source: mks_welcome.value["./readme.md"].content,
+              source: mks_welcome.value.readme.content,
               "file-path": mks_welcome.value.path_base
             }, null, 8, ["source", "file-path"]),
             createBaseVNode("ul", _hoisted_1, [
-              (openBlock(true), createElementBlock(Fragment, null, renderList(mks_funktionen.value, (item, index) => {
-                return openBlock(), createElementBlock("li", { key: index }, [
-                  createVNode(QCard, { class: "my-card" }, {
+              (openBlock(true), createElementBlock(Fragment, null, renderList(mks_funktionen.value, (fn_item, fn_name) => {
+                return openBlock(), createElementBlock("li", { key: fn_name }, [
+                  createVNode(QCard, { class: "my-card q-ma-md q-pa-md" }, {
                     default: withCtx(() => [
                       createVNode(QCardSection, null, {
                         default: withCtx(() => [
                           createVNode(_sfc_main$1, {
-                            source: item["./readme.md"].content,
-                            "file-path": item.path_base
-                          }, null, 8, ["source", "file-path"])
+                            source: fn_item.readme.content,
+                            "file-path": fn_item.path_base
+                          }, null, 8, ["source", "file-path"]),
+                          (openBlock(true), createElementBlock(Fragment, null, renderList(fn_item.bauteile, (part_item, part_name) => {
+                            return openBlock(), createBlock(QCard, {
+                              key: part_name,
+                              class: "q-ma-md q-pa-md card-bauteil"
+                            }, {
+                              default: withCtx(() => [
+                                createVNode(_sfc_main$1, {
+                                  source: part_item.readme.content,
+                                  "file-path": part_item.path_base
+                                }, null, 8, ["source", "file-path"])
+                              ]),
+                              _: 2
+                            }, 1024);
+                          }), 128))
                         ]),
                         _: 2
                       }, 1024)
@@ -63331,5 +63266,5 @@ const _sfc_main = {
     };
   }
 };
-var IndexPage = /* @__PURE__ */ _export_sfc(_sfc_main, [["__scopeId", "data-v-bd0c7c8c"]]);
+var IndexPage = /* @__PURE__ */ _export_sfc(_sfc_main, [["__scopeId", "data-v-c26227fa"]]);
 export { IndexPage as default };

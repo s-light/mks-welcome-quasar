@@ -171,16 +171,41 @@ SOFTWARE.
 .hljs-deletion {
   color: #EF535090;
   font-style: italic
-}.card-wrapper[data-v-bd0c7c8c] {
+}.my-markdown h1 {
+  font-size: 4rem;
+}
+.my-markdown h2 {
+  font-size: 3rem;
+}
+.my-markdown h3 {
+  font-size: 2rem;
+}
+.my-markdown h4 {
+  font-size: 1rem;
+}
+.my-markdown h5 {
+  font-size: 1rem;
+}
+.my-markdown h6 {
+  font-size: 1rem;
+}
+.my-card .my-markdown h1:nth-child(1) {
+  position: sticky;
+  top: 1rem;
+  text-shadow: 0 0 2px black, 0 0 5px black, 0 0 10px black, 0 0 10px black, 0 0 10px black, 0 0 10px black, 0 0 10px black, 0 0 10px black;
+  background-color: inherit;
+}.card-wrapper[data-v-c26227fa] {
   list-style: none;
   padding: 0;
 }
-.card-wrapper li[data-v-bd0c7c8c] {
+.card-wrapper li[data-v-c26227fa] {
   margin: 0;
 }
-.my-card[data-v-bd0c7c8c] {
+.my-card[data-v-c26227fa] {
   width: 100%;
-  max-width: 30vw;
+  max-width: 31vw;
+  max-height: 80vh;
+  overflow: scroll;
 }.my-card img {
   max-width: 100%;
   max-height: 20vh;

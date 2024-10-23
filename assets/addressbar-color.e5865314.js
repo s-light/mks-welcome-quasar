@@ -1,4 +1,4 @@
-import { k as boot, A as AddressbarColor } from "./index.2ba7ef10.js";
+import { k as boot, A as AddressbarColor } from "./index.da7c6027.js";
 var addressbarColor = boot(() => {
   AddressbarColor.set("#a2e3fa");
 });

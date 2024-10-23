@@ -19,45 +19,97 @@ import matter from "gray-matter";
 
 // export default file_tree();
 
-const mksContent = () => {
-    console.group("mksContent");
-    let mksContent = {
-        welcome: {},
-        funktionen: {},
-    };
-
-    mksContent["welcome"] = import.meta.glob("./readme.md", {
-        as: "raw",
-        eager: true,
-    });
-    mksContent["welcome"]["./readme.md"] = matter(mksContent["welcome"]["./readme.md"]);
-    mksContent["welcome"]["path_base"] = "mks/";
+const mksGetFunktionen = (mksContent) => {
+    console.group("mksGetFunktionen");
+    if (mksContent["funktionen"] == undefined) {
+        mksContent["funktionen"] = {};
+    }
+    const mksFn = mksContent["funktionen"];
 
     const funktionen_dir = import.meta.glob("./funktionen/*/readme.md", {
         as: "raw",
         eager: true,
     });
     for (const path in funktionen_dir) {
-        console.log(path);
+        // console.log(path);
         // const mdContent = funktionen_dir[path];
         // console.log("mdContent:", mdContent);
-        const funktionen_name = path.replace("./funktionen/", "").replace("/readme.md", "");
-        const mksFn = mksContent["funktionen"];
-        mksFn[funktionen_name] = { bauteile: {} };
+        const fn_name = path.replace("./funktionen/", "").replace("/readme.md", "");
+        if (mksFn[fn_name] == undefined) {
+            mksFn[fn_name] = {};
+        }
 
-        mksFn[funktionen_name]["path_readme"] = path;
-        mksFn[funktionen_name]["path_base"] =
-            path.replace("./", "mks/").replace("/readme.md", "/");
+        mksFn[fn_name].path_readme = path;
+        mksFn[fn_name].path_base = path.replace("./", "mks/").replace("/readme.md", "/");
         // extract / parse front matter
         // https://github.com/jonschlinkert/gray-matter
-        mksFn[funktionen_name]["./readme.md"] = matter(funktionen_dir[path]);
+        mksFn[fn_name].readme = matter(funktionen_dir[path], { eval: false });
 
-        console.log(`${funktionen_name}`, mksFn[funktionen_name]);
+        // mksFn[fn_name].bauteile = mksGetFnBauteile(mksFn[fn_name]["path_base"]);
+
+        // console.log(`${fn_name}`, mksFn[fn_name]);
     }
+    console.groupEnd();
+};
+
+const mksGetFnBauteile = (mksContent) => {
+    console.group("mksGetFnBauteile");
+
+    const mksFn = mksContent["funktionen"];
+
+    const bauteile_dir = import.meta.glob("./funktionen/*/bauteile/*/readme.md", {
+        as: "raw",
+        eager: true,
+    });
+    // console.log("bauteile_dir", bauteile_dir);
+    const path_regex = /\.\/funktionen\/(?<fn_name>.*)\/bauteile\/(?<part_name>.*)\/readme\.md/;
+    for (const path in bauteile_dir) {
+        // console.log(path);
+        const { fn_name, part_name } = path_regex.exec(path).groups;
+        // console.log(`fn_name: '${fn_name}'`);
+        // console.log(`part_name: '${part_name}'`);
+
+        if (mksFn[fn_name] == undefined) {
+            mksFn[fn_name] = {};
+        }
+        if (mksFn[fn_name].bauteile == undefined) {
+            mksFn[fn_name].bauteile = {};
+        }
+        const bauteile = mksFn[fn_name].bauteile;
+        bauteile[part_name] = {};
+        bauteile[part_name]["path_readme"] = path;
+        bauteile[part_name]["path_base"] = path.replace("./", "mks/").replace("/readme.md", "/");
+        // extract / parse front matter
+        // https://github.com/jonschlinkert/gray-matter
+        bauteile[part_name].readme = matter(bauteile_dir[path], { eval: false });
+
+        // bauteile[part_name].bauteile = mksGetFnBauteile(bauteile[part_name]["path_base"]);
+
+        console.log(`${fn_name} - ${part_name}`, bauteile[part_name]);
+    }
+    console.groupEnd();
+};
+
+const mksGetContent = () => {
+    console.group("mksContent");
+    let mksContent = {
+        welcome: {},
+        funktionen: {},
+    };
+
+    let temp = import.meta.glob("./readme.md", {
+        as: "raw",
+        eager: true,
+    });
+    mksContent["welcome"].readme = matter(temp["./readme.md"]);
+    mksContent["welcome"]["path_base"] = "mks/";
+
+    mksGetFunktionen(mksContent);
+    mksGetFnBauteile(mksContent);
 
     // console.log("mksContent:", mksContent);
     console.groupEnd();
     return mksContent;
 };
 
-export default mksContent();
+export default mksGetContent();
