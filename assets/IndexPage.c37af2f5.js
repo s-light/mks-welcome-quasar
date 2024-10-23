@@ -1,6 +1,6 @@
-import { u as useDarkProps, a as useDark, _ as _export_sfc, b as useQuasar } from "./plugin-vue_export-helper.59929e7a.js";
-import { l as createComponent, c as computed, h, m as hSlot, a as getCurrentInstance, s as shallowRef, r as ref, n as watchEffect, p as openBlock, q as createElementBlock, t as createBlock, u as withCtx, v as createBaseVNode, j as createVNode, x as renderList, F as Fragment } from "./index.d0ec3d17.js";
-import { Q as QPage } from "./QPage.816457fd.js";
+import { u as useDarkProps, a as useDark, _ as _export_sfc, b as useQuasar } from "./plugin-vue_export-helper.a3f9c10f.js";
+import { l as createComponent, c as computed, h, m as hSlot, a as getCurrentInstance, s as shallowRef, r as ref, n as watchEffect, p as openBlock, q as createElementBlock, t as createBlock, u as withCtx, v as createBaseVNode, j as createVNode, x as renderList, F as Fragment } from "./index.48c11614.js";
+import { Q as QPage } from "./QPage.9960d992.js";
 var QCard = createComponent({
   name: "QCard",
   props: {
@@ -63226,7 +63226,7 @@ const mksGetContent = () => {
     welcome: {},
     funktionen: {}
   };
-  let temp = { "./readme.md": '---\ntitel: MYS Material\ntags: "welcome"\n---\n\n# MYS Material\n\nhier findet ihr eine Liste aller MYS Materialien..\n:tada:\n\n[mks](https://makeyourschool.de/maker-ecke/material/)\n\n```c++ :./example.cpp\n```\n\n```c++ :./nothinghere.cpp\nfails to import.\n```\n\nTODO: implement search & filtering\n\n# Funktionen\n' };
+  let temp = { "./readme.md": '---\ntitel: MYS Material\ntags: "welcome"\n---\n\n# MYS Material\n\nhier findet ihr eine Liste aller MYS Materialien..\n:tada:\n\n[mks](https://makeyourschool.de/maker-ecke/material/)\n\n```c++ :./example.cpp\n```\n\n<!-- ```c++ :./nothinghere.cpp\nfails to import.\n``` -->\n\nTODO: implement search & filtering\n\n# Funktionen\n' };
   const path_base = "mks/";
   mksContent2["welcome"].readme = preProcessingMD(temp["./readme.md"], path_base);
   mksContent2["welcome"]["path_base"] = path_base;
