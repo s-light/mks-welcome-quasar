@@ -19,6 +19,15 @@ import matter from "gray-matter";
 
 // export default file_tree();
 
+const preProcessingMD = (source, path_base) => {
+    console.group("preProcessingMD");
+    const processedObj = matter(source, { eval: false });
+    console.log("path_base:", path_base);
+    console.log("processedObj:", processedObj);
+    console.groupEnd();
+    return processedObj;
+};
+
 const mksGetFunktionen = (mksContent) => {
     console.group("mksGetFunktionen");
     if (mksContent["funktionen"] == undefined) {
@@ -43,7 +52,7 @@ const mksGetFunktionen = (mksContent) => {
         mksFn[fn_name].path_base = path.replace("./", "mks/").replace("/readme.md", "/");
         // extract / parse front matter
         // https://github.com/jonschlinkert/gray-matter
-        mksFn[fn_name].readme = matter(funktionen_dir[path], { eval: false });
+        mksFn[fn_name].readme = preProcessingMD(funktionen_dir[path], mksFn[fn_name].path_base);
 
         // mksFn[fn_name].bauteile = mksGetFnBauteile(mksFn[fn_name]["path_base"]);
 
@@ -101,11 +110,12 @@ const mksGetContent = () => {
         as: "raw",
         eager: true,
     });
-    mksContent["welcome"].readme = matter(temp["./readme.md"]);
-    mksContent["welcome"]["path_base"] = "mks/";
+    const path_base = "mks/";
+    mksContent["welcome"].readme = preProcessingMD(temp["./readme.md"], path_base);
+    mksContent["welcome"]["path_base"] = path_base;
 
-    mksGetFunktionen(mksContent);
-    mksGetFnBauteile(mksContent);
+    // mksGetFunktionen(mksContent);
+    // mksGetFnBauteile(mksContent);
 
     // console.log("mksContent:", mksContent);
     console.groupEnd();

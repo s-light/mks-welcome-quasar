@@ -4,7 +4,7 @@
 </template>
 
 <script setup>
-import { computed, h, shallowRef } from "vue";
+import { computed, h, shallowRef, ref, watch, watchEffect } from "vue";
 
 // import VueMarkdown from "vue-markdown-render";
 // this component is based on
@@ -21,7 +21,8 @@ import anchor from "markdown-it-anchor";
 import { include as mdit_include } from "@mdit/plugin-include";
 
 import markdownItPluginImgSrcAbs from "./markdown-it-plugin-img-src-abs";
-import markdownItPluginEmbedCode from "./markdown-it-plugin-embed-code";
+// import markdownItPluginEmbedCode from "./markdown-it-plugin-embed-code";
+import { runEmbedCode } from "./markdown-it-plugin-embed-code";
 
 import hljs from "highlight.js";
 import "highlight.js/styles/night-owl.css";
@@ -66,8 +67,10 @@ const md = shallowRef(new MarkdownIt(md_options));
 //     currentPath: (env) => env.filePath,
 // });
 // this currently does not work - as es tries to use process.cwd
-// so we write our own
-md.value.use(markdownItPluginEmbedCode);
+// so we write our own.
+// md.value.use(markdownItPluginEmbedCode);
+// sadly plugins can not be async.
+// so we have to do the rendering steps manually - see below.
 
 md.value.use(markdownItPluginImgSrcAbs);
 
@@ -91,15 +94,23 @@ md.value.use(markdownItPluginImgSrcAbs);
 // ];
 // const md_plugins = [MarkdownItAnchor];
 
+const contentHTML = ref(null);
 
-const contentHTML = computed(() => {
-    return md.value.render(props.source, {
+watchEffect(async () => {
+    // https://github.com/markdown-it/markdown-it/issues/256#issuecomment-224700130
+    // we need to do it manually to be able to do async steps in between..
+    const env = {
         filePath: props.filePath,
-    });
+    };
+
+    let tokens = md.value.parse(props.source, env);
+    // call async function
+    await runEmbedCode(tokens, {}, env, md.value);
+    // do final rendering
+    contentHTML.value = md.value.renderer.render(tokens, md.value.options, env);
+    // return md.value.render(props.source, env);
 });
 </script>
-
-
 
 <style lang="sass">
 .my-markdown
@@ -115,9 +126,12 @@ const contentHTML = computed(() => {
         font-size: 1rem
     h6
         font-size: 1rem
+    img
+        max-width: 10vw
 .my-card .my-markdown h1:nth-child(1)
         position: sticky
         top: 1rem
         text-shadow: 0 0 2px black, 0 0 5px black, 0 0 10px black, 0 0 10px black, 0 0 10px black, 0 0 10px black, 0 0 10px black, 0 0 10px black
         background-color: inherit
 </style>
+, watchEffect
