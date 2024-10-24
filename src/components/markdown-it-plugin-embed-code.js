@@ -32,6 +32,9 @@ const embedCode = async (tokens, idx, options, env, self) => {
             if (codeContent) {
                 // console.log("overwrite token.content.");
                 token.content = codeContent;
+                token.codeLanguage = codeLang;
+                token.codeFilePath = codeFilePath;
+                token.filePath = filePath;
                 // console.log("token", token);
             }
         }

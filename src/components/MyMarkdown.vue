@@ -1,10 +1,30 @@
 <template>
     <!-- <VueMarkdown :source="source" :plugins="md_plugins" :options="md_options" /> -->
-    <div class="my-markdown" v-html="contentHTML"></div>
+    <!-- <div class="my-markdown" v-html="contentHTML"></div> -->
+    <div class="my-markdown-wrapper">
+        <div v-for="(item, index) in content" :key="index">
+            <div v-if="item.type == 'html'" v-html="item.content" class="my-markdown"></div>
+            <div v-if="item.type == 'code'">
+                <span>{{ item.include_path }}</span>
+                <VCodeBlock
+                    :code="item.content"
+                    highlightjs
+                    label="Hello World"
+                    :lang="item.codeLanguage"
+                    :theme="theme"
+                ></VCodeBlock>
+            </div>
+        </div>
+    </div>
 </template>
 
 <script setup>
 import { computed, h, shallowRef, ref, watch, watchEffect } from "vue";
+import { useQuasar } from "quasar";
+
+import VCodeBlock from "@wdns/vue-code-block";
+
+// import MyHtml from "./MyHtml.vue";
 
 // import VueMarkdown from "vue-markdown-render";
 // this component is based on
@@ -18,14 +38,15 @@ import anchor from "markdown-it-anchor";
 // https://github.com/nagaozen/markdown-it-toc-done-right
 // import * as mdi_toc from "markdown-it-toc-done-right";
 
-import { include as mdit_include } from "@mdit/plugin-include";
+import { include, include as mdit_include } from "@mdit/plugin-include";
 
 import markdownItPluginImgSrcAbs from "./markdown-it-plugin-img-src-abs";
 // import markdownItPluginEmbedCode from "./markdown-it-plugin-embed-code";
 import { runEmbedCode } from "./markdown-it-plugin-embed-code";
 
 import hljs from "highlight.js";
-import "highlight.js/styles/night-owl.css";
+// import "highlight.js/styles/night-owl.css";
+// import 'highlight.js/styles/base16/solarized-dark.css';
 // import hljs from 'highlight.js/lib/core';
 // import javascript from 'highlight.js/lib/languages/javascript';
 // // Then register the languages you need
@@ -94,7 +115,47 @@ md.value.use(markdownItPluginImgSrcAbs);
 // ];
 // const md_plugins = [MarkdownItAnchor];
 
-const contentHTML = ref(null);
+// const contentHTML = ref([]);
+const content = ref([]);
+
+const addHTMLChunk = (tokens, token_start, token_end, env) => {
+    let chunk = {
+        type: "html",
+        content: "",
+    };
+    chunk.content = md.value.renderer.render(
+        tokens.splice(token_start, token_end),
+        md.value.options,
+        env
+    );
+    content.value.push(chunk);
+};
+const addCodeChunk = (token, env) => {
+    let chunk = {
+        type: "code",
+        content: token.content,
+        codeLanguage: token.codeLanguage,
+        filePath: token.filePath,
+        codeFilePath: token.codeFilePath,
+    };
+    content.value.push(chunk);
+};
+
+const theme = ref("base16/solarized-dark");
+const $q = useQuasar();
+watch(
+    () => $q.dark.isActive,
+    (val) => {
+        console.log(val ? "On dark mode" : "On light mode");
+        if (val) {
+            // dark
+            theme.value = "base16/solarized-dark";
+        } else {
+            // light
+            theme.value = "base16/solarized-light";
+        }
+    }
+);
 
 watchEffect(async () => {
     // https://github.com/markdown-it/markdown-it/issues/256#issuecomment-224700130
@@ -106,9 +167,30 @@ watchEffect(async () => {
     let tokens = md.value.parse(props.source, env);
     // call async function
     await runEmbedCode(tokens, {}, env, md.value);
+
+    // now lets split the tokens in parseInt.
+    // we want to extract all code blocks..
+    let chunk_start = 0;
+    for (let idx = 0; idx < tokens.length; idx++) {
+        const token = tokens[idx];
+        if (token.type == "fence") {
+            addHTMLChunk(tokens, chunk_start, idx - 1, env);
+            addCodeChunk(token, env);
+
+            chunk_start = idx + 1;
+        }
+    }
+    // add rest
+    addHTMLChunk(tokens, chunk_start, tokens.length - 1, env);
+
     // do final rendering
-    contentHTML.value = md.value.renderer.render(tokens, md.value.options, env);
     // return md.value.render(props.source, env);
+    // const htmlComponent = new MyHtml({
+    //     props: {
+    //         source: contentHTML,
+    //     },
+    // });
+    // htmlComponent.$mount();
 });
 </script>
 

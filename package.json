@@ -15,6 +15,7 @@
   "dependencies": {
     "@mdit/plugin-include": "^0.13.1",
     "@quasar/extras": "^1.16.4",
+    "@wdns/vue-code-block": "^2.3.3",
     "gray-matter": "^4.0.3",
     "highlight.js": "^11.10.0",
     "markdown-it-anchor": "^9.2.0",
