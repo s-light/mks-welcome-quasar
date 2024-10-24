@@ -185,6 +185,18 @@ function normalizeClass(value) {
   }
   return res.trim();
 }
+function normalizeProps(props) {
+  if (!props)
+    return null;
+  let { class: klass, style } = props;
+  if (klass && !isString(klass)) {
+    props.class = normalizeClass(klass);
+  }
+  if (style) {
+    props.style = normalizeStyle(style);
+  }
+  return props;
+}
 const specialBooleanAttrs = `itemscope,allowfullscreen,formnovalidate,ismap,nomodule,novalidate,readonly`;
 const isSpecialBooleanAttr = /* @__PURE__ */ makeMap(specialBooleanAttrs);
 function includeBooleanAttr(value) {
@@ -776,6 +788,10 @@ function trigger(target2, type, key, newValue, oldValue, oldTarget) {
     }
   }
   endBatch();
+}
+function getDepFromReactive(object, key) {
+  const depMap = targetMap.get(object);
+  return depMap && depMap.get(key);
 }
 function reactiveReadArray(array) {
   const raw = toRaw(array);
@@ -1456,6 +1472,36 @@ const shallowUnwrapHandlers = {
 };
 function proxyRefs(objectWithRefs) {
   return isReactive(objectWithRefs) ? objectWithRefs : new Proxy(objectWithRefs, shallowUnwrapHandlers);
+}
+function toRefs(object) {
+  const ret = isArray$1(object) ? new Array(object.length) : {};
+  for (const key in object) {
+    ret[key] = propertyToRef(object, key);
+  }
+  return ret;
+}
+class ObjectRefImpl {
+  constructor(_object, _key, _defaultValue) {
+    this._object = _object;
+    this._key = _key;
+    this._defaultValue = _defaultValue;
+    this["__v_isRef"] = true;
+    this._value = void 0;
+  }
+  get value() {
+    const val = this._object[this._key];
+    return this._value = val === void 0 ? this._defaultValue : val;
+  }
+  set value(newVal) {
+    this._object[this._key] = newVal;
+  }
+  get dep() {
+    return getDepFromReactive(toRaw(this._object), this._key);
+  }
+}
+function propertyToRef(source, key, defaultValue) {
+  const val = source[key];
+  return isRef(val) ? val : new ObjectRefImpl(source, key, defaultValue);
 }
 class ComputedRefImpl {
   constructor(fn, setter, isSSR) {
@@ -2674,6 +2720,51 @@ function renderList(source, renderItem, cache, index) {
   }
   return ret;
 }
+function renderSlot(slots, name, props = {}, fallback, noSlotted) {
+  if (currentRenderingInstance.ce || currentRenderingInstance.parent && isAsyncWrapper(currentRenderingInstance.parent) && currentRenderingInstance.parent.ce) {
+    if (name !== "default")
+      props.name = name;
+    return openBlock(), createBlock(
+      Fragment,
+      null,
+      [createVNode("slot", props, fallback && fallback())],
+      64
+    );
+  }
+  let slot = slots[name];
+  if (slot && slot._c) {
+    slot._d = false;
+  }
+  openBlock();
+  const validSlotContent = slot && ensureValidVNode(slot(props));
+  const slotKey = props.key || validSlotContent && validSlotContent.key;
+  const rendered = createBlock(
+    Fragment,
+    {
+      key: (slotKey && !isSymbol(slotKey) ? slotKey : `_${name}`) + (!validSlotContent && fallback ? "_fb" : "")
+    },
+    validSlotContent || (fallback ? fallback() : []),
+    validSlotContent && slots._ === 1 ? 64 : -2
+  );
+  if (!noSlotted && rendered.scopeId) {
+    rendered.slotScopeIds = [rendered.scopeId + "-s"];
+  }
+  if (slot && slot._c) {
+    slot._d = true;
+  }
+  return rendered;
+}
+function ensureValidVNode(vnodes) {
+  return vnodes.some((child) => {
+    if (!isVNode(child))
+      return true;
+    if (child.type === Comment)
+      return false;
+    if (child.type === Fragment && !ensureValidVNode(child.children))
+      return false;
+    return true;
+  }) ? vnodes : null;
+}
 const getPublicInstance = (i) => {
   if (!i)
     return null;
@@ -2791,11 +2882,40 @@ const PublicInstanceProxyHandlers = {
     return Reflect.defineProperty(target2, key, descriptor);
   }
 };
+function useSlots() {
+  return getContext().slots;
+}
+function getContext() {
+  const i = getCurrentInstance();
+  return i.setupContext || (i.setupContext = createSetupContext(i));
+}
 function normalizePropsOrEmits(props) {
   return isArray$1(props) ? props.reduce(
     (normalized, p2) => (normalized[p2] = null, normalized),
     {}
   ) : props;
+}
+function mergeDefaults(raw, defaults2) {
+  const props = normalizePropsOrEmits(raw);
+  for (const key in defaults2) {
+    if (key.startsWith("__skip"))
+      continue;
+    let opt = props[key];
+    if (opt) {
+      if (isArray$1(opt) || isFunction(opt)) {
+        opt = props[key] = { type: opt, default: defaults2[key] };
+      } else {
+        opt.default = defaults2[key];
+      }
+    } else if (opt === null) {
+      opt = props[key] = { default: defaults2[key] };
+    } else
+      ;
+    if (opt && defaults2[`__skip_${key}`]) {
+      opt.skipFactory = true;
+    }
+  }
+  return props;
 }
 let shouldCacheAccess = true;
 function applyOptions(instance) {
@@ -5567,6 +5687,9 @@ function cloneVNode(vnode, extraProps, mergeRef = false, cloneTransition = false
 }
 function createTextVNode(text = " ", flag = 0) {
   return createVNode(Text, null, text, flag);
+}
+function createCommentVNode(text = "", asBlock = false) {
+  return asBlock ? (openBlock(), createBlock(Comment, null, text)) : createVNode(Comment, null, text);
 }
 function normalizeVNode(child) {
   if (child == null || typeof child === "boolean") {
@@ -9703,32 +9826,34 @@ const childrenCommon = [
     title: "md test",
     icon: "brush",
     path: "/",
-    component: () => __vitePreload(() => import("./IndexPage.c37af2f5.js"), true ? ["assets/IndexPage.c37af2f5.js","assets/IndexPage.3e6bbb4a.css","assets/plugin-vue_export-helper.a3f9c10f.js","assets/QPage.9960d992.js"] : void 0)
+    component: () => __vitePreload(() => import("./IndexPage.ddf8cda0.js").then(function(n) {
+      return n.I;
+    }), true ? ["assets/IndexPage.ddf8cda0.js","assets/IndexPage.d5d9f6b0.css","assets/plugin-vue_export-helper.8c1cdffa.js","assets/QPage.01157e3c.js"] : void 0)
   },
   {
     title: "About",
     icon: "info",
     path: "about",
-    component: () => __vitePreload(() => import("./AboutPage.f1a362b2.js"), true ? ["assets/AboutPage.f1a362b2.js","assets/QPage.9960d992.js"] : void 0)
+    component: () => __vitePreload(() => import("./AboutPage.e59af311.js"), true ? ["assets/AboutPage.e59af311.js","assets/QPage.01157e3c.js"] : void 0)
   },
   {
     title: "Settings",
     icon: "settings",
     path: "settings",
-    component: () => __vitePreload(() => import("./SettingsPage.4a0c5364.js"), true ? ["assets/SettingsPage.4a0c5364.js","assets/QPage.9960d992.js"] : void 0)
+    component: () => __vitePreload(() => import("./SettingsPage.ad262676.js"), true ? ["assets/SettingsPage.ad262676.js","assets/QPage.01157e3c.js"] : void 0)
   }
 ];
 const routes = [
   {
     path: "/",
-    component: () => __vitePreload(() => import("./MainLayout.65bbcde4.js"), true ? ["assets/MainLayout.65bbcde4.js","assets/MainLayout.4762c220.css","assets/plugin-vue_export-helper.a3f9c10f.js"] : void 0),
+    component: () => __vitePreload(() => import("./MainLayout.d886fe98.js"), true ? ["assets/MainLayout.d886fe98.js","assets/MainLayout.4762c220.css","assets/plugin-vue_export-helper.8c1cdffa.js"] : void 0),
     children: [
       ...childrenCommon
     ]
   },
   {
     path: "/:catchAll(.*)*",
-    component: () => __vitePreload(() => import("./ErrorNotFound.4b2c8446.js"), true ? [] : void 0)
+    component: () => __vitePreload(() => import("./ErrorNotFound.c8602101.js"), true ? [] : void 0)
   }
 ];
 var createRouter = route(function() {
@@ -11553,11 +11678,11 @@ createQuasarApp(createApp, quasarUserOptions).then((app2) => {
     (bootFiles) => bootFiles.map((entry) => entry.default)
   ];
   return Promise[method]([
-    __vitePreload(() => import("./i18n.44879953.js"), true ? [] : void 0),
-    __vitePreload(() => import("./addressbar-color.4a1badf5.js"), true ? [] : void 0)
+    __vitePreload(() => import("./i18n.d325d743.js"), true ? [] : void 0),
+    __vitePreload(() => import("./addressbar-color.6dfef1e1.js"), true ? [] : void 0)
   ]).then((bootFiles) => {
     const boot2 = mapFn(bootFiles).filter((entry) => typeof entry === "function");
     start(app2, boot2);
   });
 });
-export { leftClick as $, AddressbarColor as A, pageContainerKey as B, quasarKey as C, toDisplayString as D, unref as E, Fragment as F, createTextVNode as G, useRouterLinkProps as H, useRouterLink as I, isKeyCode as J, stopAndPrevent as K, hUniqueSlot as L, onBeforeUnmount as M, History as N, vmHasRouter as O, nextTick as P, css as Q, getElement as R, client as S, Text as T, listenOpts as U, getEventPath as V, onDeactivated as W, vmIsDestroyed as X, Platform as Y, createDirective as Z, noop$1 as _, getCurrentInstance as a, addEvt as a0, preventDraggable as a1, prevent as a2, stop as a3, position as a4, cleanEvt as a5, withDirectives as a6, hDir as a7, provide as a8, isRuntimeSsrPreHydration as a9, reactive as aa, hMergeSlot as ab, childrenCommon as ac, QIcon as ad, resolveComponent as ae, QBtn as af, onUnmounted as b, computed as c, defineComponent as d, effectScope as e, isRef as f, global as g, h, inject as i, createVNode as j, boot as k, createComponent as l, hSlot as m, watchEffect as n, onMounted as o, openBlock as p, createElementBlock as q, ref as r, shallowRef as s, createBlock as t, withCtx as u, createBaseVNode as v, watch as w, renderList as x, emptyRenderFn as y, layoutKey as z };
+export { nextTick as $, AddressbarColor as A, onBeforeMount as B, normalizeStyle as C, renderSlot as D, normalizeProps as E, Fragment as F, createTextVNode as G, toDisplayString as H, normalizeClass as I, createBlock as J, watchEffect as K, renderList as L, withCtx as M, emptyRenderFn as N, layoutKey as O, pageContainerKey as P, quasarKey as Q, useRouterLinkProps as R, useRouterLink as S, Text as T, isKeyCode as U, stopAndPrevent as V, hUniqueSlot as W, onBeforeUnmount as X, History as Y, vmHasRouter as Z, __vitePreload as _, getCurrentInstance as a, css as a0, getElement as a1, client as a2, listenOpts as a3, getEventPath as a4, onDeactivated as a5, vmIsDestroyed as a6, Platform as a7, createDirective as a8, noop$1 as a9, leftClick as aa, addEvt as ab, preventDraggable as ac, prevent as ad, stop as ae, position as af, cleanEvt as ag, withDirectives as ah, hDir as ai, provide as aj, isRuntimeSsrPreHydration as ak, reactive as al, hMergeSlot as am, childrenCommon as an, QIcon as ao, resolveComponent as ap, QBtn as aq, onUnmounted as b, computed as c, defineComponent as d, effectScope as e, isRef as f, global as g, h, inject as i, createVNode as j, boot as k, createComponent as l, hSlot as m, createBaseVNode as n, onMounted as o, openBlock as p, createElementBlock as q, ref as r, shallowRef as s, mergeProps as t, createCommentVNode as u, mergeDefaults as v, watch as w, useSlots as x, toRefs as y, unref as z };
