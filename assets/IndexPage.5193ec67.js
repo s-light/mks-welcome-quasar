@@ -1,6 +1,6 @@
-import { u as useDarkProps, a as useDark, b as useQuasar, _ as _export_sfc } from "./plugin-vue_export-helper.8c1cdffa.js";
-import { l as createComponent, c as computed, h, m as hSlot, a as getCurrentInstance, n as createBaseVNode, d as defineComponent, p as openBlock, q as createElementBlock, t as mergeProps, u as createCommentVNode, v as mergeDefaults, x as useSlots, i as inject, r as ref, y as toRefs, z as unref, w as watch, B as onBeforeMount, o as onMounted, C as normalizeStyle, D as renderSlot, E as normalizeProps, F as Fragment, G as createTextVNode, H as toDisplayString, I as normalizeClass, J as createBlock, _ as __vitePreload, s as shallowRef, K as watchEffect, L as renderList, j as createVNode, M as withCtx } from "./index.ae443054.js";
-import { Q as QPage } from "./QPage.01157e3c.js";
+import { u as useDarkProps, a as useDark, b as useQuasar, _ as _export_sfc } from "./plugin-vue_export-helper.0654cbc6.js";
+import { l as createComponent, c as computed, h, m as hSlot, a as getCurrentInstance, n as createBaseVNode, d as defineComponent, p as openBlock, q as createElementBlock, t as mergeProps, u as createCommentVNode, v as mergeDefaults, x as useSlots, i as inject, r as ref, y as toRefs, z as unref, w as watch, B as onBeforeMount, o as onMounted, C as normalizeStyle, D as renderSlot, E as normalizeProps, F as Fragment, G as createTextVNode, H as toDisplayString, I as normalizeClass, J as createBlock, _ as __vitePreload, s as shallowRef, K as watchEffect, L as renderList, j as createVNode, M as withCtx } from "./index.4329365d.js";
+import { Q as QPage } from "./QPage.397b6bcb.js";
 var QCard = createComponent({
   name: "QCard",
   props: {
@@ -1254,11 +1254,11 @@ const Fn = { class: "v-code-block--button-copy" }, In = { class: "v-code-block--
         const a2 = e2.value.code.toString();
         x.value = JSON.stringify(JSON.parse(a2), null, e2.value.indent);
       }
-    })(), e2.value.highlightjs && __vitePreload(() => import("./index.7108ad03.js"), true ? ["assets/index.7108ad03.js","assets/plugin-vue_export-helper.8c1cdffa.js","assets/index.ae443054.js","assets/index.3fc86f98.css","assets/QPage.01157e3c.js"] : void 0).then((a2) => {
+    })(), e2.value.highlightjs && __vitePreload(() => import("./index.b02fa410.js"), true ? ["assets/index.b02fa410.js","assets/plugin-vue_export-helper.0654cbc6.js","assets/index.4329365d.js","assets/index.3fc86f98.css","assets/QPage.397b6bcb.js"] : void 0).then((a2) => {
       L = a2.default, L.registerLanguage("plain", An), M.value = L.highlight(x.value, { language: e2.value.lang }).value;
     }).catch((a2) => {
       console.error("Highlight.js import:", { err: a2 });
-    }), e2.value.prismjs && __vitePreload(() => import("./prism.944baaa7.js").then(function(n2) {
+    }), e2.value.prismjs && __vitePreload(() => import("./prism.7db81442.js").then(function(n2) {
       return n2.p;
     }), true ? [] : void 0).then((a2) => {
       A = a2.default, M.value = A.highlight(x.value, A.languages[e2.value.lang], e2.value.lang);
@@ -59259,6 +59259,9 @@ const _sfc_main$1 = {
       eval: false
     };
     const md = shallowRef(new markdownIt(md_options));
+    md.value.use(b, {
+      permalink: b.permalink.headerLink()
+    });
     md.value.use(imgSrcAbs);
     const content = ref([]);
     const addHTMLChunk = (tokens, token_start, token_end, env) => {
@@ -64541,7 +64544,7 @@ const mksGetContent = () => {
     welcome: {},
     funktionen: {}
   };
-  let temp = { "./readme.md": '---\ntitel: MYS Material\ntags: "welcome"\n---\n\n# MYS Material\n\nhier findet ihr eine Liste aller MYS Materialien..\n:tada:\n\n[mks](https://makeyourschool.de/maker-ecke/material/)\n\n```c++ :./example.cpp\n```\n\n<!-- ```c++ :./nothinghere.cpp\nfails to import.\n``` -->\n\nTODO: implement search & filtering\n\n# Funktionen\n' };
+  let temp = { "./readme.md": '---\ntitel: MYS Material\ntags: "welcome"\n---\n\n# MYS Material\n\nhier findet ihr eine Liste aller MYS Materialien..\n:tada:\n\n[mks](https://makeyourschool.de/maker-ecke/material/)\n\n```c++ :./nothinghere.cpp\nfails to import.\nTODO: check for 404 / 200 and handle these in a smart way..\n```\n\nTODO: implement deep-linking to directly jump to Funktionen und Bauteilen\nmaybe with router-view?!\n\n\nTODO: implement search & filtering\n\n# Funktionen\n' };
   const path_base = "mks/";
   mksContent2["welcome"].readme = preProcessingMD(temp["./readme.md"], path_base);
   mksContent2["welcome"]["path_base"] = path_base;

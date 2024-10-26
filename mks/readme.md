@@ -10,12 +10,14 @@ hier findet ihr eine Liste aller MYS Materialien..
 
 [mks](https://makeyourschool.de/maker-ecke/material/)
 
-```c++ :./example.cpp
+```c++ :./nothinghere.cpp
+fails to import.
+TODO: check for 404 / 200 and handle these in a smart way..
 ```
 
-<!-- ```c++ :./nothinghere.cpp
-fails to import.
-``` -->
+TODO: implement deep-linking to directly jump to Funktionen und Bauteilen
+maybe with router-view?!
+
 
 TODO: implement search & filtering
 
