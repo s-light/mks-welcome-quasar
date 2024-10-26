@@ -19,6 +19,7 @@
     "gray-matter": "^4.0.3",
     "highlight.js": "^11.10.0",
     "markdown-it-anchor": "^9.2.0",
+    "markdown-it-emoji": "^3.0.0",
     "markdown-it-toc-done-right": "^4.2.0",
     "pinia": "^2.2.4",
     "quasar": "^2.16.0",

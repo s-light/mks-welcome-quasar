@@ -77,9 +77,10 @@ const md_options = {
 
 const md = shallowRef(new MarkdownIt(md_options));
 
-// md.value.use(anchor, {
-//   permalink: anchor.permalink.headerLink()
-// });
+md.value.use(anchor, {
+  permalink: anchor.permalink.headerLink()
+});
+
 // md.value.use(mdi_toc);
 
 // https://mdit-plugins.github.io/include.html#syntax
