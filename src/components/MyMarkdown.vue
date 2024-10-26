@@ -38,7 +38,7 @@ import anchor from "markdown-it-anchor";
 // https://github.com/nagaozen/markdown-it-toc-done-right
 // import * as mdi_toc from "markdown-it-toc-done-right";
 
-import { include, include as mdit_include } from "@mdit/plugin-include";
+// import { include, include as mdit_include } from "@mdit/plugin-include";
 
 import markdownItPluginImgSrcAbs from "./markdown-it-plugin-img-src-abs";
 // import markdownItPluginEmbedCode from "./markdown-it-plugin-embed-code";
